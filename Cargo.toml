@@ -1,0 +1,9 @@
+[package]
+name = "open-in-mpv"
+version = "0.1.0"
+authors = ["Leonardo Baldin <leobaldin.2000@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+percent-encoding = "1.0.1"
+url = "1.7.2"
