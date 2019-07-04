@@ -1,4 +1,4 @@
-use std::{collections::HashMap, env, process::{Command, exit}, vec::Vec};
+use std::{collections::HashMap, env, process::{Command, exit, Stdio}, vec::Vec};
 use url::{percent_encoding::percent_decode, Url};
 
 #[derive(Debug)]
@@ -102,7 +102,8 @@ fn main() {
 
     Command::new("mpv")
         .args(build_args(mo))
-        .output()
+        .stdout(Stdio::null())
+        .spawn()
         .expect("failed to open mpv");
 }
 
