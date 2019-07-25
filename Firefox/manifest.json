@@ -1,9 +1,16 @@
 {
   "manifest_version": 2,
-  "name": "Open In MPV",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{d66c8515-1e0d-408f-82ee-2682f2362726}"
+    }
+  },
+  "name": "Open In mpv",
   "description": "Open videos and audios in mpv.",
   "version": "1.0.0",
-  "options_page": "options.html",
+  "options_ui": {
+    "page": "options.html"
+  },
   "background": {
     "page": "background.html"
   },
