@@ -2,16 +2,18 @@
 
 set -e
 
+force_update=true
 desktop_dir=~/.local/share/applications
 
-if [[ ! -d "$desktop_dir/open-in-mpv.desktop" ]]; then
-	pushd $desktop_dir
+if [[ ! -f "${desktop_dir}/open-in-mpv.desktop" || "${force_update}" = true ]]; then
+	pushd "${desktop_dir}"
 	cat << 'EOF' >> open-in-mpv.desktop
 [Desktop Entry]
 Name=open-in-mpv
 Exec=open-in-mpv %u
 Type=Application
 Terminal=false
+NoDisplay=true
 MimeType=x-scheme-handler/mpv
 EOF
 	update-desktop-database .
