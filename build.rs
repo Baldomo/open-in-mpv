@@ -11,6 +11,8 @@ use openssl::sign::Signer;
 
 type Buffer = Vec<u8>;
 
+// TODO: signing for the Chrome extension
+
 fn main() {
     zip_dir("Chrome", "Chrome/ext.zip");
     package_crx("./Chrome/ext.zip", "cert.pem");

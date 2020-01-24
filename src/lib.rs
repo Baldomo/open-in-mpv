@@ -1,5 +1,5 @@
 use std::vec::Vec;
-use url::percent_encoding::percent_decode;
+use percent_encoding::percent_decode;
 
 #[derive(Debug)]
 pub struct MpvOption {
@@ -15,9 +15,6 @@ impl MpvOption {
     /// # Example
     /// ```
     /// use open_in_mpv::MpvOption;
-    /// # use std::error::Error;
-    ///
-    /// # fn run() -> Result<(), Box<Error>> {
     /// let mo: MpvOption = MpvOption::new(
     ///     "url",
     ///     "1",
@@ -26,9 +23,6 @@ impl MpvOption {
     /// );
     ///
     /// print!("{:?}", mo);
-    /// # Ok(())
-    /// # }
-    /// # run().unwrap();
     /// ```
     pub fn new(url: &str, fullscreen: &str, pip: &str, enqueue: &str) -> Self {
         Self {
@@ -58,6 +52,7 @@ impl MpvOption {
         }
     }
 
+
     /// Returns a Vec containing the argument list for a new mpv process
     ///
     /// Each parameter of MpvOption is bound to a set of defaults, e.g. `--ontop --no-border` etc.
@@ -65,9 +60,6 @@ impl MpvOption {
     /// # Example
     /// ```
     /// use open_in_mpv::MpvOption;
-    /// # use std::error::Error;
-    ///
-    /// # fn run() -> Result<(), Box<Error>> {
     /// let mo: MpvOption = MpvOption::new(
     ///     "url",
     ///     "1",
@@ -76,9 +68,6 @@ impl MpvOption {
     /// );
     ///
     /// print!("{:?}", mo.build_args());
-    /// # Ok(())
-    /// # }
-    /// # run().unwrap();
     /// ```
     pub fn build_args(self) -> Vec<String> {
         let mut ret: Vec<String> = Vec::new();
@@ -112,7 +101,12 @@ mod tests {
         let encoded_url: &str = "https%3A%2F%2Fst3x_plus.cdnfile.info%2Fuser592%2F5543369133e06eedecc4907bfcd0fd45%2FEP.1.360p.mp4%3Ftoken%3DZDpvjlchVpTP0yb_5AsaEw%26expires%3D1562085204%26title%3D(360P%2520-%2520mp4)%2520Terminator%2B4%253A%2BSalvation%2BHD-720p";
         let expected_url: String = String::from("https://st3x_plus.cdnfile.info/user592/5543369133e06eedecc4907bfcd0fd45/EP.1.360p.mp4?token=ZDpvjlchVpTP0yb_5AsaEw&expires=1562085204&title=(360P%20-%20mp4)%20Terminator+4%3A+Salvation+HD-720p");
 
-        let mo: MpvOption = MpvOption::new(encoded_url, "1", "0", "1");
+        let mo: MpvOption = MpvOption::new(
+            encoded_url, 
+            "1",
+            "0",
+            "1",
+        );
 
         assert_eq!(mo.url, expected_url);
         assert_eq!(mo.fullscreen, true);
