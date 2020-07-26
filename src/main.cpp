@@ -15,7 +15,7 @@ const char *help[2] = {
 bool install_protocol() {
     const char *protocol_file = R"([Desktop Entry]
 Name=open-in-mpv
-Exec=open-in-mpv %u
+Exec=env LD_PRELOAD='' open-in-mpv %u
 Type=Application
 Terminal=false
 NoDisplay=true
