@@ -10,7 +10,7 @@ if [[ ! -f "${desktop_dir}/open-in-mpv.desktop" || "${force_update}" = true ]]; 
 	cat << 'EOF' >> open-in-mpv.desktop
 [Desktop Entry]
 Name=open-in-mpv
-Exec=open-in-mpv %u
+Exec=env LD_PRELOAD='' open-in-mpv %u
 Type=Application
 Terminal=false
 NoDisplay=true
