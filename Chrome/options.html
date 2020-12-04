@@ -6,40 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Options</title>
     <script src="common.js" type="module"></script>
-    <style>
-        body {
-            font-size: 14px;
-            line-height: 1.4;
-        }
-        .container {
-            width: 90%;
-            max-width: 880px;
-            margin: 1rem auto;
-            background: #f4f4f4;
-            border-radius: 6px;
-            box-shadow: 0 0 16px rgba(0,0,0,.2);
-        }
-        .title {
-            padding: 1rem;
-            margin: 0;
-        }
-        .option {
-            padding: 1rem;
-        }
-        .option:not(:last-child) {
-            border-top: 1px solid #e4e4e4;
-            border-bottom: 1px solid #e4e4e4;
-        }
-        .option .option-title {
-            font-weight: bold;
-        }
-        .option .option-details {
-            margin-top: 0.5rem;
-            padding-left: 1rem;
-        }
-    </style>
+    <link rel="stylesheet" href="options.css">
 </head>
 <body>
+    <div class="container">
+        <h2 class="title">Player options:</h2>
+        <div class="option">
+            <label class="option-title"> Select the mpv-based player to use</label>
+            <br>
+            <select name="mpvPlayer">
+                <option value="mpv">mpv</option>
+                <option value="celluloid">Celluloid</option>
+            </select>
+        </div>
+        <div class="option">
+            <label class="option-title"><input type="checkbox" name="useCustomFlags"> Use custom command line flags</label>
+            <div class="option-details" id="customFlagsContainer">
+                <input type="text" name="customFlags">
+                <p style="color: rgb(70, 70, 70);"> Note: do include hyphens (e.g.<span style="font-family: monospace;">'--fs'</span>)</p>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <h2 class="title">When clicking on the extension icon:</h2>
         <div class="option">
