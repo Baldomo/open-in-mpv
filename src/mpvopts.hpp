@@ -1,5 +1,5 @@
-#ifndef MPVOPTS_H_
-#define MPVOPTS_H_
+#ifndef MPVOPTS_HPP_
+#define MPVOPTS_HPP_
 
 #include <curl/curl.h>
 #include <cstring>
@@ -146,7 +146,7 @@ string url_decode(const string encoded) {
  */
 string query_value(string query, string key) {
     // Find the beginning of the last occurrence of `key` in `query`
-    auto pos = query.rfind(key);
+    auto pos = query.rfind(key + "=");
     if (pos == string::npos) return "";
 
     // Offset calculation (beginning of the value string associated with `key`):
@@ -158,6 +158,5 @@ string query_value(string query, string key) {
     // (difference between the position of the first '&' char after the value and `offset`)
     return query.substr(offset, query.find('&', pos) - offset);
 }
-
 
 #endif

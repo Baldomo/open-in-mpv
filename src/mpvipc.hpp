@@ -1,5 +1,5 @@
-#ifndef MPVIPC_H_
-#define MPVIPC_H_
+#ifndef MPVIPC_HPP_
+#define MPVIPC_HPP_
 
 #include <cstring>
 #include <unistd.h>
