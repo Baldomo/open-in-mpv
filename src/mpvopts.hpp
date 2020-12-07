@@ -32,6 +32,7 @@ public:
 };
 
 mpvoptions::mpvoptions() {
+    // TODO: add custom flag options, custom player etc
     this->curlu = curl_url();
     this->fullscreen = false;
     this->pip = false;

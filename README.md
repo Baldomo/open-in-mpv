@@ -27,8 +27,8 @@ The table below is a simple documentation of the URL query keys and values used 
 | `flags`       | `--vo%3Dgpu`                           | Custom command options and flags to be passed to the video player |
 
 ### Playlist and `enqueue` functionality
-For `enqueue` to work properly with any mpv-based player, the playes has to be able to read commands from a `fifo` name pipe. This can be achieved by adding the following line to the video player's configuration (usually `.conf/mpv/mpv.conf` for mpv).
+For `enqueue` to work properly with any mpv-based player (provided it supports mpv's IPC), the player has to read commands from a socket. This can be achieved by adding the following line to the video player's configuration (usually `.conf/mpv/mpv.conf` for mpv).
 
-```
+```conf
 input-ipc-server=/tmp/mpvsocket
 ```
