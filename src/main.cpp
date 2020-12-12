@@ -54,11 +54,13 @@ int main(int argc, char const *argv[]) {
     if (mo->needs_ipc()) {
         mpvipc *mipc = new mpvipc();
         bool success = mipc->send(mo->build_ipc());
-        if (!success) {
-            std::cout << "Error writing to mpv socket" << std::endl;
-            return 1;
+        if (success) {
+            return 0;
         }
-    } else std::system(mo->build_cmd().c_str());
+
+        std::cout << "Error writing to socket, opening new instance" << std::endl;
+    }
+    std::system(mo->build_cmd().c_str());
 
     return 0;
 }

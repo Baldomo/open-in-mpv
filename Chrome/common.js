@@ -33,7 +33,7 @@ class Option {
             case "select":
                 return document.querySelector(`select[name="${this.name}"]`).value;
             case "text":
-                return document.querySelector(`select[name="${this.name}"]`).value;
+                return document.querySelector(`input[name="${this.name}"]`).value;
         }
     }
 }
