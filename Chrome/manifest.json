@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Open In MPV",
-  "description": "Open videos and audios in mpv.",
+  "description": "Open videos and audio files in mpv.",
   "version": "1.0.0",
   "options_page": "options.html",
   "background": {

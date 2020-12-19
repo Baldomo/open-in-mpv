@@ -8,12 +8,17 @@
 #include <string>
 using std::string;
 
+#include <iostream>
+
 string url_decode(const string encoded);
 string query_value(string query, string key);
+string query_value(string query, string key, string fallback);
 
 class mpvoptions {
 private:
     string url;
+    string flags;
+    string player;
     bool fullscreen;
     bool pip;
     bool enqueue;
@@ -32,8 +37,9 @@ public:
 };
 
 mpvoptions::mpvoptions() {
-    // TODO: add custom flag options, custom player etc
     this->curlu = curl_url();
+    this->flags = "";
+    this->player = "mpv";
     this->fullscreen = false;
     this->pip = false;
     this->enqueue = false;
@@ -49,13 +55,16 @@ mpvoptions::~mpvoptions() {
 string mpvoptions::build_cmd() {
     std::ostringstream ret;
 
-    ret << "mpv ";
+    ret << this->player << " ";
     if (this->fullscreen) ret << "--fs ";
     if (this->pip) ret << "--ontop --no-border --autofit=384x216 --geometry=98\%:98\% ";
+    if (!this->flags.empty())
+        ret << this->flags << " ";
     // NOTE: this is not needed for mpv (it always opens a new window), maybe for other players?
     // if (this->new_window) ret << "--new-window";
     ret << this->url;
 
+    std::cout << ret.str() << std::endl;
     return ret.str();
 }
 
@@ -109,6 +118,8 @@ void mpvoptions::parse(const char *url) {
     string querystr(query);
     curl_free(query);
     this->url = url_decode(query_value(querystr, "url"));
+    this->flags = url_decode(query_value(querystr, "flags"));
+    this->player = query_value(querystr, "player", "mpv");
     this->fullscreen = query_value(querystr, "fullscreen") == "1";
     this->pip = query_value(querystr, "pip") == "1";
     this->enqueue = query_value(querystr, "enqueue") == "1";
@@ -158,6 +169,12 @@ string query_value(string query, string key) {
     // Return a string starting from the offset and with appropriate length
     // (difference between the position of the first '&' char after the value and `offset`)
     return query.substr(offset, query.find('&', pos) - offset);
+}
+
+string query_value(string query, string key, string fallback) {
+    string ret = query_value(query, key);
+    if (ret.empty()) return fallback;
+    return ret;
 }
 
 #endif

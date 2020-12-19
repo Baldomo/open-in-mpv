@@ -1,10 +1,13 @@
 import { restoreOptions, saveOptions, updateBrowserAction } from "./common.js";
 
-document.addEventListener("DOMContentLoaded", restoreOptions);
-
-Array.prototype.forEach.call(document.getElementsByTagName("input"), (el) => {
+function listener(el) {
     el.addEventListener("change", () => {
         saveOptions();
         updateBrowserAction();
     });
-});
+}
+
+document.addEventListener("DOMContentLoaded", restoreOptions);
+
+Array.prototype.forEach.call(document.getElementsByTagName("input"), listener);
+Array.prototype.forEach.call(document.getElementsByTagName("select"), listener);

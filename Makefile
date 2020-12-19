@@ -15,5 +15,10 @@ install: all
 uninstall:
 	rm /usr/bin/open-in-mpv
 
+firefox:
+	cp -t Firefox Chrome/{*.html,*.js,*.png,*.css}
+	pushd Firefox && zip ../Firefox.zip * && popd
+	@rm Firefox/{*.html,*.js,*.png,*.css}
+
 clean:
-	rm open-in-mpv
+	@rm open-in-mpv Firefox.zip

@@ -72,8 +72,10 @@ export function restoreOptions() {
 
 export function openInMPV(tabId, url, options = {}) {
     const baseURL = `mpv:///open?`;
+
     // Encode video URL
     const params = [`url=${encodeURIComponent(url)}`];
+
     // Add playback options
     switch (options.mode) {
         case "fullScreen":
@@ -83,22 +85,24 @@ export function openInMPV(tabId, url, options = {}) {
         case "enqueue":
             params.push("enqueue=1"); break;
     }
+
     // Add new window option
     if (options.newWindow) {
         params.push("new_window=1");
     }
+
     // Add alternative player and user-defined custom flags
-    getOptions(items => {
-        params.push(`player=${items["mpvPlayer"]}`)
-        if (items["useCustomFlags"])
-            params.push(`flags=${encodeURIComponent(items["customFlags"])}`);
-    })
+    params.push(`player=${options.mpvPlayer}`);
+    if (options.useCustomFlags && options.customFlags !== "")
+        params.push(`flags=${encodeURIComponent(options.customFlags)}`);
+
     const code = `
         var link = document.createElement('a');
         link.href='${baseURL}${params.join("&")}';
         document.body.appendChild(link);
         link.click();
         `;
+    console.log(code);
     chrome.tabs.executeScript(tabId, { code });
 }
 
@@ -115,6 +119,7 @@ export function updateBrowserAction() {
                     if (tab.id === chrome.tabs.TAB_ID_NONE) { return; }
                     openInMPV(tab.id, tab.url, {
                         mode: options.iconActionOption,
+                        ...options,
                     });
                 });
             });
