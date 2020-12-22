@@ -1,4 +1,4 @@
-import { updateBrowserAction, openInMPV } from "./common.js";
+import { getOptions, openInMPV, updateBrowserAction } from "./common.js";
 
 updateBrowserAction();
 
@@ -8,7 +8,13 @@ updateBrowserAction();
         id: `open${item}inmpv`,
         contexts: [item],
         onclick: (info, tab) => {
-            openInMPV(tab.id, info[linkType]);
+            getOptions((options) => {
+                console.log("Got options: ", options);
+                openInMPV(tab.id, info[linkType], {
+                    mode: options.iconActionOption,
+                    ...options,
+                });
+            });
         },
     });
 });

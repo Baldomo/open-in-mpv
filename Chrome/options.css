@@ -18,12 +18,16 @@ body {
     margin: 0;
 }
 
+.item:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
 .option {
     padding: 1rem;
+    border-top: 1px solid #e4e4e4;
 }
 
 .option:not(:last-child) {
-    border-top: 1px solid #e4e4e4;
     border-bottom: 1px solid #e4e4e4;
 }
 
@@ -32,8 +36,28 @@ body {
 }
 
 .option .option-details {
+    padding-left: 0.5rem;
+}
+
+.option .option-details:not(:first-child) {
     margin-top: 0.5rem;
-    padding-left: 1rem;
+}
+
+.option .option-details:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.option-details > p {
+    color: rgb(70, 70, 70);
+    margin-block: 0;
+}
+
+input[type="text"] {
+    font-family: monospace;
+    border: 1px solid rgb(169, 169, 169);
+    margin: 0 0 0.5rem 0;
+    padding: 0.2rem;
+    border-radius: 6px;
 }
 
 select {
@@ -41,12 +65,4 @@ select {
     padding: 0.2rem;
     border-radius: 6px;
     background-color: #fff;
-}
-
-input[type="text"] {
-    font-family: monospace;
-    border: 1px solid rgb(169, 169, 169);
-    margin: 0.1rem;
-    padding: 0.2rem;
-    border-radius: 6px;
 }

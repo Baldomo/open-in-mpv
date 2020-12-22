@@ -7,7 +7,7 @@ SRCS = src/curl.hpp \
 	   src/main.cpp
 
 all:
-	$(CXX) $(CXXFLAGS) -o open-in-mpv src/main.cpp
+	$(CXX) $(CXXFLAGS) -march=x86-64 -mtune=generic -O2 -pipe -fno-plt -o open-in-mpv src/main.cpp
 
 install: all
 	cp open-in-mpv /usr/bin
@@ -21,4 +21,4 @@ firefox:
 	@rm Firefox/{*.html,*.js,*.png,*.css}
 
 clean:
-	@rm open-in-mpv Firefox.zip
+	@rm -f open-in-mpv Firefox.zip Chrome.crx

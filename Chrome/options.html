@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <h2 class="title">Player options:</h2>
+        <h2 class="title">Player options</h2>
         <div class="option">
             <label class="option-title"> Select the mpv-based player to use</label>
             <br>
@@ -23,31 +23,37 @@
             <label class="option-title"><input type="checkbox" name="useCustomFlags"> Use custom command line flags</label>
             <div class="option-details" id="customFlagsContainer">
                 <input type="text" name="customFlags">
-                <p style="color: rgb(70, 70, 70);"> Note: do include hyphens (e.g.<span style="font-family: monospace;">'--fs'</span>)</p>
+                <p> Note: do include hyphens (e.g.<span style="font-family: monospace;">'--fs'</span>)</p>
             </div>
         </div>
     </div>
     <div class="container">
-        <h2 class="title">When clicking on the extension icon:</h2>
+        <h2 class="title">When clicking on the extension icon</h2>
         <div class="option">
-            <label class="option-title"><input type="radio" name="iconAction" value="clickOnly"> Open current page in mpv</label>
-            <div class="option-details">
-                <div class="item">
-                    <label><input type="radio" name="iconActionOption" value="direct"> Open directly</label>
-                </div>
-                <div class="item">
-                    <label><input type="radio" name="iconActionOption" value="fullScreen"> Enter full screen</label>
-                </div>
-                <div class="item">
-                    <label><input type="radio" name="iconActionOption" value="pip"> Enter Picture-in-Picture</label>
-                </div>
-                <div class="item">
-                    <label><input type="radio" name="iconActionOption" value="enqueue"> Add to queue</label>
-                </div>
+            <div class="item">
+                <label><input type="radio" name="iconAction" value="clickOnly"> Open current page in mpv</label>
+            </div>
+            <div class="item">
+                <label><input type="radio" name="iconAction" value="menu"> Show a menu to select action</label>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <h2 class="title">Default open action</h2>
         <div class="option">
-            <label class="option-title"><input type="radio" name="iconAction" value="menu"> Show a menu to select action</label>
+            <div class="option-details"><p>Applies to "Open current page in mpv" and the right click context menu</p></div>
+            <div class="item">
+                <label><input type="radio" name="iconActionOption" value="direct"> Open directly</label>
+            </div>
+            <div class="item">
+                <label><input type="radio" name="iconActionOption" value="fullScreen"> Enter full screen</label>
+            </div>
+            <div class="item">
+                <label><input type="radio" name="iconActionOption" value="pip"> Enter Picture-in-Picture</label>
+            </div>
+            <div class="item">
+                <label><input type="radio" name="iconActionOption" value="enqueue"> Add to queue</label>
+            </div>
         </div>
     </div>
     <script src="options.js" type="module"></script>
