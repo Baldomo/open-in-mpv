@@ -13,7 +13,7 @@ release:
 debug:
 	$(CXX) $(CXXFLAGS_debug) -o open-in-mpv src/main.cpp
 
-install: all
+install: release
 	cp open-in-mpv /usr/bin
 
 uninstall:
