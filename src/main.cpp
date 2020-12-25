@@ -1,5 +1,6 @@
-#include "mpvopts.hpp"
-#include "mpvipc.hpp"
+#include "options.hpp"
+#include "ipc.hpp"
+
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -43,7 +44,7 @@ int main(int argc, char const *argv[]) {
         return install_protocol();
     }
 
-    mpvoptions *mo = new mpvoptions();
+    oim::options *mo = new oim::options();
     try {
         mo->parse(argv[1]);
     } catch (string err) {
@@ -52,7 +53,7 @@ int main(int argc, char const *argv[]) {
     }
     
     if (mo->needs_ipc()) {
-        mpvipc *mipc = new mpvipc();
+        oim::ipc *mipc = new oim::ipc();
         bool success = mipc->send(mo->build_ipc());
         if (success) {
             return 0;

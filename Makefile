@@ -1,13 +1,17 @@
-INCLUDES = -Isrc/ -I/opt/curl/include
-LDFLAGS = -L/opt/curl/lib
-LDLIBS = -lcurl
-CXXFLAGS = -Wall $(INCLUDES) $(LDFLAGS) $(LDLIBS)
+INCLUDES = -Isrc/
+CXXFLAGS_debug = -Wall -DDEBUG -g -rdynamic
+CXXFLAGS_release = -Wall -fvisibility=hidden -fvisibility-inlines-hidden -std=c++2a -march=x86-64 -mtune=generic -O3 -pipe -fno-plt $(INCLUDES)
 SRCS = src/curl.hpp \
 	   src/mpvopts.hpp \
 	   src/main.cpp
 
-all:
-	$(CXX) $(CXXFLAGS) -march=x86-64 -mtune=generic -O2 -pipe -fno-plt -o open-in-mpv src/main.cpp
+all: release firefox
+
+release:
+	$(CXX) $(CXXFLAGS_release) -o open-in-mpv src/main.cpp
+
+debug:
+	$(CXX) $(CXXFLAGS_debug) -o open-in-mpv src/main.cpp
 
 install: all
 	cp open-in-mpv /usr/bin
@@ -22,3 +26,5 @@ firefox:
 
 clean:
 	@rm -f open-in-mpv Firefox.zip Chrome.crx
+
+.PHONY: all release debug install uninstall firefox clean

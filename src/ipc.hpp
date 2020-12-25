@@ -10,20 +10,30 @@ using std::string;
 
 const char *DEFAULT_SOCK = "/tmp/mpvsocket";
 
-class mpvipc {
+namespace oim {
+
+/*
+ * The class oim::ipc provides easy communication and basic socket management 
+ * for any running mpv instance configured to receive commands over a JSON-IPC server/socket.
+ */
+class ipc {
 private:
     sockaddr_un sockaddress;
     int sockfd;
     int socklen;
+
 public:
-    mpvipc() : mpvipc(DEFAULT_SOCK) {};
-    mpvipc(const char *sockpath);
-    ~mpvipc();
+    ipc() : ipc(DEFAULT_SOCK) {};
+    ipc(const char *sockpath);
+    ~ipc();
 
     bool send(string cmd);
 };
 
-mpvipc::mpvipc(const char *sockpath) {
+/*
+ * Constructor for oim::ipc
+ */
+ipc::ipc(const char *sockpath) {
     this->sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
     this->sockaddress.sun_family = AF_UNIX;
     std::strcpy(this->sockaddress.sun_path, sockpath);
@@ -32,12 +42,20 @@ mpvipc::mpvipc(const char *sockpath) {
     connect(this->sockfd, (const sockaddr*)&this->sockaddress, this->socklen);
 }
 
-mpvipc::~mpvipc() {
+/*
+ * Destructor for oim::ipc
+ */
+ipc::~ipc() {
     close(this->sockfd);
 }
 
-bool mpvipc::send(string cmd) {
+/*
+ * Sends a raw command string to the internal socket at DEFAULT_SOCK
+ */
+bool ipc::send(string cmd) {
     return write(this->sockfd, cmd.c_str(), cmd.length()) != -1;
 }
+
+} // namespace name
 
 #endif

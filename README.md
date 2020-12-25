@@ -1,14 +1,13 @@
 # open-in-mpv
 This is a simple web extension (for Chrome and Firefox) which helps open any video in the currently open tab in the [mpv player](https://mpv.io).
 
-The extension itself is a copy of the one from the awesome [iina](https://github.com/iina/iina), while the (bare) backend is written in C++11 (this is a rewrite from Rust).
+The extension itself shares a lot of code with the one from the awesome [iina](https://github.com/iina/iina), while the (bare) backend is written in C++20 (this is a rewrite from Rust).
 
 ## Installation
 > Compiled binaries and packed extensions can be found in the [releases page](https://github.com/Baldomo/open-in-mpv/releases).
 
-This project requires [`libcurl`](https://curl.se/libcurl/). Each distro has its own way of installing the library so I will leave that to your favourite web search engine.
+This project does not require any external library to run or compile release builds. To build and install `open-in-mpv`, just run
 
-To build and install `open-in-mpv`, just run
 ```sh
 sudo make install
 ```
