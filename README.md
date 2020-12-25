@@ -24,11 +24,11 @@ The table below is a simple documentation of the URL query keys and values used 
 | `pip`         | `1`                                    | Simulates a picture-in-picture mode (only works with mpv for now) |
 | `enqueue`     | `1`                                    | Adds a video to the queue (see below) |
 | `new_window`  | `1`                                    | Forcibly starts a video in a new window even if one is already open |
-| `player`      | `celluloid`                            | :warning: WIP, starts any arbitrary video player (only mpv-based ones are recommended, such as [Celluloid](https://celluloid-player.github.io/)) |
+| `player`      | `celluloid`                            | Starts any arbitrary video player (only mpv-based ones are recommended, such as [Celluloid](https://celluloid-player.github.io/)) |
 | `flags`       | `--vo%3Dgpu`                           | Custom command options and flags to be passed to the video player, URL-encoded |
 
 ### Playlist and `enqueue` functionality
-For `enqueue` to work properly with any mpv-based player (provided it supports mpv's IPC), the player has to read commands from a socket. This can be achieved by adding the following line to the video player's configuration (usually `.conf/mpv/mpv.conf` for mpv).
+For `enqueue` to work properly with any mpv-based player (provided it supports mpv's IPC), the player has to read commands from a socket. This can be achieved by adding the following line to the video player's configuration (usually `.config/mpv/mpv.conf` for mpv).
 
 ```conf
 input-ipc-server=/tmp/mpvsocket
