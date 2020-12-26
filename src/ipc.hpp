@@ -1,11 +1,12 @@
-#ifndef MPVIPC_HPP_
-#define MPVIPC_HPP_
+#ifndef OIM_IPC_HPP_
+#define OIM_IPC_HPP_
 
 #include <cstring>
-#include <unistd.h>
 #include <string>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include <unistd.h>
+
 using std::string;
 
 const char *DEFAULT_SOCK = "/tmp/mpvsocket";
@@ -13,17 +14,18 @@ const char *DEFAULT_SOCK = "/tmp/mpvsocket";
 namespace oim {
 
 /*
- * The class oim::ipc provides easy communication and basic socket management 
- * for any running mpv instance configured to receive commands over a JSON-IPC server/socket.
+ * The class oim::ipc provides easy communication and basic socket management
+ * for any running mpv instance configured to receive commands over a JSON-IPC
+ * server/socket.
  */
 class ipc {
-private:
-    sockaddr_un sockaddress;
-    int sockfd;
-    int socklen;
+  private:
+    sockaddr_un sockaddress_;
+    int sockfd_;
+    int socklen_;
 
-public:
-    ipc() : ipc(DEFAULT_SOCK) {};
+  public:
+    ipc() : ipc(DEFAULT_SOCK){};
     ipc(const char *sockpath);
     ~ipc();
 
@@ -34,28 +36,26 @@ public:
  * Constructor for oim::ipc
  */
 ipc::ipc(const char *sockpath) {
-    this->sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
-    this->sockaddress.sun_family = AF_UNIX;
-    std::strcpy(this->sockaddress.sun_path, sockpath);
-    this->socklen = sizeof(this->sockaddress);
+    sockfd_ = socket(AF_UNIX, SOCK_STREAM, 0);
+    sockaddress_.sun_family = AF_UNIX;
+    std::strcpy(sockaddress_.sun_path, sockpath);
+    socklen_ = sizeof(sockaddress_);
 
-    connect(this->sockfd, (const sockaddr*)&this->sockaddress, this->socklen);
+    connect(sockfd_, (const sockaddr *)&sockaddress_, socklen_);
 }
 
 /*
  * Destructor for oim::ipc
  */
-ipc::~ipc() {
-    close(this->sockfd);
-}
+ipc::~ipc() { close(sockfd_); }
 
 /*
  * Sends a raw command string to the internal socket at DEFAULT_SOCK
  */
 bool ipc::send(string cmd) {
-    return write(this->sockfd, cmd.c_str(), cmd.length()) != -1;
+    return write(sockfd_, cmd.c_str(), cmd.length()) != -1;
 }
 
-} // namespace name
+} // namespace oim
 
 #endif

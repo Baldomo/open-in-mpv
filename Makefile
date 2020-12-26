@@ -1,5 +1,5 @@
 INCLUDES = -Isrc/
-CXXFLAGS_debug = -Wall -DDEBUG -g -rdynamic
+CXXFLAGS_debug = -Wall -DDEBUG -g -rdynamic -std=c++2a $(INCLUDES)
 CXXFLAGS_release = -Wall -fvisibility=hidden -fvisibility-inlines-hidden -std=c++2a -march=x86-64 -mtune=generic -O3 -pipe -fno-plt $(INCLUDES)
 SRCS = src/curl.hpp \
 	   src/mpvopts.hpp \

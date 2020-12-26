@@ -1,5 +1,5 @@
-#ifndef MPVOPTS_HPP_
-#define MPVOPTS_HPP_
+#ifndef OIM_OPTS_HPP_
+#define OIM_OPTS_HPP_
 
 #include "url.hpp"
 
@@ -12,21 +12,21 @@ using std::string;
 namespace oim {
 
 /*
- * The class oim::options defines a model for the data contained in the mpv:// 
- * URL and acts as a command generator (both CLI and IPC) to spawn and 
+ * The class oim::options defines a model for the data contained in the mpv://
+ * URL and acts as a command generator (both CLI and IPC) to spawn and
  * communicate with an mpv player window.
  */
 class options {
-private:
-    string url;
-    string flags;
-    string player;
-    bool fullscreen;
-    bool pip;
-    bool enqueue;
-    bool new_window;
+  private:
+    string url_;
+    string flags_;
+    string player_;
+    bool fullscreen_;
+    bool pip_;
+    bool enqueue_;
+    bool new_window_;
 
-public:
+  public:
     options();
 
     string build_cmd();
@@ -37,15 +37,15 @@ public:
 };
 
 /*
- * Constructor for oim::options 
+ * Constructor for oim::options
  */
 options::options() {
-    this->url = "";
-    this->flags = "";
-    this->player = "mpv";
-    this->fullscreen = false;
-    this->pip = false;
-    this->enqueue = false;
+    url_ = "";
+    flags_ = "";
+    player_ = "mpv";
+    fullscreen_ = false;
+    pip_ = false;
+    enqueue_ = false;
 }
 
 /*
@@ -57,14 +57,16 @@ string options::build_cmd() {
     // TODO: some of these options work only in mpv and not other players
     // This can be solved by adding a list of some sorts (json/toml/whatever)
     // containing the flags to use for each functionality and each player
-    ret << this->player << " ";
-    if (this->fullscreen) ret << "--fs ";
-    if (this->pip) ret << "--ontop --no-border --autofit=384x216 --geometry=98\%:98\% ";
-    if (!this->flags.empty())
-        ret << this->flags << " ";
-    // NOTE: this is not needed for mpv (it always opens a new window), maybe for other players?
-    // if (this->new_window) ret << "--new-window";
-    ret << this->url;
+    ret << player_ << " ";
+    if (fullscreen_)
+        ret << "--fs ";
+    if (pip_)
+        ret << "--ontop --no-border --autofit=384x216 --geometry=98\%:98\% ";
+    if (!flags_.empty())
+        ret << flags_ << " ";
+    // NOTE: this is not needed for mpv (it always opens a new window), maybe
+    // for other players? if (this->new_window_) ret << "--new-window";
+    ret << url_;
 
     return ret.str();
 }
@@ -75,25 +77,25 @@ string options::build_cmd() {
 string options::build_ipc() {
     std::ostringstream ret;
 
-    if (!this->needs_ipc()) return "";
+    if (!needs_ipc())
+        return "";
 
-    // TODO: in the future this may need a more serious json serializer for 
+    // In the future this may need a more serious json serializer for
     // more complicated commands
     // Syntax: {"command": ["loadfile", "%s", "append-play"]}\n
-    ret << R"({"command": ["loadfile", ")" 
-        << this->url 
-        << R"(", "append-play"]})" << std::endl;
+    ret << R"({"command": ["loadfile", ")" << url_ << R"(", "append-play"]})"
+        << std::endl;
 
     return ret.str();
 }
 
 /*
- * Parse a URL and populate the current MpvOptions (uses libcurl for parsing)
+ * Parse a URL and populate the current oim::options
  */
 void options::parse(const char *url_s) {
     oim::url u(url_s);
 
-    if (u.protocol() != "mpv") 
+    if (u.protocol() != "mpv")
         throw string("Unsupported protocol supplied: ") + u.protocol();
 
     if (u.path() != "/open")
@@ -102,14 +104,15 @@ void options::parse(const char *url_s) {
     if (u.query().empty())
         throw string("Empty query");
 
-    this->url = oim::url_decode(u.query_value("url"));
-    this->flags = oim::url_decode(u.query_value("flags"));
-    this->player = u.query_value("player", "mpv");
-    this->fullscreen = u.query_value("fullscreen") == "1";
-    this->pip = u.query_value("pip") == "1";
-    this->enqueue = u.query_value("enqueue") == "1";
-    this->new_window = u.query_value("new_window") == "1";
-}  
+    url_ = oim::url_decode(u.query_value("url"));
+    flags_ = oim::url_decode(u.query_value("flags"));
+    player_ = u.query_value("player", "mpv");
+
+    fullscreen_ = u.query_value("fullscreen") == "1";
+    pip_ = u.query_value("pip") == "1";
+    enqueue_ = u.query_value("enqueue") == "1";
+    new_window_ = u.query_value("new_window") == "1";
+}
 
 /*
  * Checks wether or not oim::options needs to communicate with mpv via IPC
@@ -117,7 +120,7 @@ void options::parse(const char *url_s) {
  */
 bool options::needs_ipc() {
     // For now this is needed only when queuing videos
-    return this->enqueue;
+    return enqueue_;
 }
 
 } // namespace oim

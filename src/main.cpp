@@ -1,5 +1,5 @@
-#include "options.hpp"
 #include "ipc.hpp"
+#include "options.hpp"
 
 #include <cstdlib>
 #include <fstream>
@@ -10,8 +10,8 @@ using std::string;
 
 const char *help[2] = {
     "This program is not supposed to be called from the command line!",
-    "Call with 'install-protocol' to instal the xdg-compatible protocol file in ~/.local/share/applications/"
-};
+    "Call with 'install-protocol' to instal the xdg-compatible protocol file "
+    "in ~/.local/share/applications/"};
 
 bool install_protocol() {
     const char *protocol_file = R"([Desktop Entry]
@@ -24,9 +24,11 @@ MimeType=x-scheme-handler/mpv
 )";
 
     const char *homedir = std::getenv("HOME");
-    if (!homedir) return false;
+    if (!homedir)
+        return false;
 
-    std::ofstream protfile(string(homedir) + "/.local/share/applications/open-in-mpv.desktop");
+    std::ofstream protfile(string(homedir) +
+                           "/.local/share/applications/open-in-mpv.desktop");
     protfile << protocol_file;
     protfile.flush();
     protfile.close();
@@ -40,9 +42,8 @@ int main(int argc, char const *argv[]) {
         return 0;
     };
 
-    if (string(argv[1]) == "install-protocol") {
-        return install_protocol();
-    }
+    if (string(argv[1]) == "install-protocol")
+        return install_protocol() ? 0 : 1;
 
     oim::options *mo = new oim::options();
     try {
@@ -51,7 +52,7 @@ int main(int argc, char const *argv[]) {
         std::cout << err << std::endl;
         return 1;
     }
-    
+
     if (mo->needs_ipc()) {
         oim::ipc *mipc = new oim::ipc();
         bool success = mipc->send(mo->build_ipc());
@@ -59,7 +60,8 @@ int main(int argc, char const *argv[]) {
             return 0;
         }
 
-        std::cout << "Error writing to socket, opening new instance" << std::endl;
+        std::cout << "Error writing to socket, opening new instance"
+                  << std::endl;
     }
     std::system(mo->build_cmd().c_str());
 
