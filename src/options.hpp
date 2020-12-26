@@ -1,5 +1,4 @@
-#ifndef OIM_OPTS_HPP_
-#define OIM_OPTS_HPP_
+#pragma once
 
 #include "url.hpp"
 
@@ -27,18 +26,33 @@ class options {
     bool new_window_;
 
   public:
+    /*
+     * Constructor for oim::options
+     */
     options();
 
+    /*
+     * Builds a CLI command used to invoke mpv with the appropriate arguments
+     */
     string build_cmd();
+
+    /*
+     * Builds the IPC command needed to enqueue videos in mpv
+     */
     string build_ipc();
+
+    /*
+     * Parse a URL and populate the current oim::options
+     */
     void parse(const char *url);
 
+    /*
+     * Checks wether or not oim::options needs to communicate with mpv via IPC
+     * instead of the command line interface
+     */
     bool needs_ipc();
 };
 
-/*
- * Constructor for oim::options
- */
 options::options() {
     url_ = "";
     flags_ = "";
@@ -48,9 +62,6 @@ options::options() {
     enqueue_ = false;
 }
 
-/*
- * Builds a CLI command used to invoke mpv with the appropriate arguments
- */
 string options::build_cmd() {
     std::ostringstream ret;
 
@@ -71,9 +82,6 @@ string options::build_cmd() {
     return ret.str();
 }
 
-/*
- * Builds the IPC command needed to enqueue videos in mpv
- */
 string options::build_ipc() {
     std::ostringstream ret;
 
@@ -89,9 +97,6 @@ string options::build_ipc() {
     return ret.str();
 }
 
-/*
- * Parse a URL and populate the current oim::options
- */
 void options::parse(const char *url_s) {
     oim::url u(url_s);
 
@@ -114,15 +119,9 @@ void options::parse(const char *url_s) {
     new_window_ = u.query_value("new_window") == "1";
 }
 
-/*
- * Checks wether or not oim::options needs to communicate with mpv via IPC
- * instead of the command line interface
- */
 bool options::needs_ipc() {
     // For now this is needed only when queuing videos
     return enqueue_;
 }
 
 } // namespace oim
-
-#endif

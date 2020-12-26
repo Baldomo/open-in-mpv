@@ -1,5 +1,4 @@
-#ifndef OIM_IPC_HPP_
-#define OIM_IPC_HPP_
+#pragma once
 
 #include <cstring>
 #include <string>
@@ -57,5 +56,3 @@ bool ipc::send(string cmd) {
 }
 
 } // namespace oim
-
-#endif
