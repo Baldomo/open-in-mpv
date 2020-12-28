@@ -24,16 +24,24 @@ class ipc {
     int socklen_;
 
   public:
-    ipc() : ipc(DEFAULT_SOCK){};
-    ipc(const char *sockpath);
-    ~ipc();
+    ipc() : ipc(DEFAULT_SOCK) {};
 
+    /*
+     * Constructor for oim::ipc
+     */
+    ipc(const char *sockpath);
+
+    /*
+     * Destructor for oim::ipc
+     */
+    ~ipc() { close(sockfd_); };
+
+    /*
+     * Sends a raw command string to the internal socket at DEFAULT_SOCK
+     */
     bool send(string cmd);
 };
 
-/*
- * Constructor for oim::ipc
- */
 ipc::ipc(const char *sockpath) {
     sockfd_ = socket(AF_UNIX, SOCK_STREAM, 0);
     sockaddress_.sun_family = AF_UNIX;
@@ -43,14 +51,6 @@ ipc::ipc(const char *sockpath) {
     connect(sockfd_, (const sockaddr *)&sockaddress_, socklen_);
 }
 
-/*
- * Destructor for oim::ipc
- */
-ipc::~ipc() { close(sockfd_); }
-
-/*
- * Sends a raw command string to the internal socket at DEFAULT_SOCK
- */
 bool ipc::send(string cmd) {
     return write(sockfd_, cmd.c_str(), cmd.length()) != -1;
 }

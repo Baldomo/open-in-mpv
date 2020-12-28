@@ -109,8 +109,8 @@ void options::parse(const char *url_s) {
     if (u.query().empty())
         throw string("Empty query");
 
-    url_ = oim::url_decode(u.query_value("url"));
-    flags_ = oim::url_decode(u.query_value("flags"));
+    url_ = oim::percent_decode(u.query_value("url"));
+    flags_ = oim::percent_decode(u.query_value("flags"));
     player_ = u.query_value("player", "mpv");
 
     fullscreen_ = u.query_value("fullscreen") == "1";

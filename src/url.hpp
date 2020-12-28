@@ -51,12 +51,7 @@ class url {
     url(const string &url_s);
 
     /* Move constructor for oim::url */
-    url(url &&other) {
-        protocol_ = std::move(other.protocol_);
-        host_ = std::move(other.host_);
-        path_ = std::move(other.path_);
-        query_ = std::move(other.query_);
-    };
+    url(url &&other);
 
     /* Accessor for the URL's protocol string */
     string protocol() { return protocol_; }
@@ -109,6 +104,13 @@ url::url(const string &url_s) {
     query_.assign(query_i, url_s.end());
 }
 
+url::url(url &&other) {
+    protocol_ = std::move(other.protocol_);
+    host_ = std::move(other.host_);
+    path_ = std::move(other.path_);
+    query_ = std::move(other.query_);
+}
+
 string url::query_value(string key) {
     // Find the beginning of the last occurrence of `key` in `query`
     auto pos = query_.rfind(key + "=");
@@ -137,7 +139,7 @@ string url::query_value(string key, string fallback) {
 /*
  * Percent-decodes a URL
  */
-string url_decode(const string encoded) {
+string percent_decode(const string encoded) {
     string ret = "";
     for (auto i = encoded.begin(); i < encoded.end(); i++) {
         if (*i == '%') {
