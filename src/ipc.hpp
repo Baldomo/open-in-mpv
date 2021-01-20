@@ -24,7 +24,7 @@ class ipc {
     int socklen_;
 
   public:
-    ipc() : ipc(DEFAULT_SOCK) {};
+    ipc() : ipc(DEFAULT_SOCK){};
 
     /*
      * Constructor for oim::ipc

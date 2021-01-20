@@ -83,8 +83,8 @@ url::url(const string &url_s) {
         url_s.begin(), url_s.end(), prot_end.begin(), prot_end.end());
     protocol_.reserve(std::distance(url_s.begin(), prot_i));
     // The protocol is case insensitive
-    std::transform(url_s.begin(), prot_i, std::back_inserter(protocol_),
-                   std::ptr_fun<int, int>(tolower));
+    std::transform(
+        url_s.begin(), prot_i, std::back_inserter(protocol_), ::tolower);
     if (prot_i == url_s.end())
         return;
     std::advance(prot_i, prot_end.length());
@@ -93,8 +93,7 @@ url::url(const string &url_s) {
     string::const_iterator path_i = std::find(prot_i, url_s.end(), '/');
     host_.reserve(std::distance(prot_i, path_i));
     // The host is also case insensitive
-    std::transform(prot_i, path_i, std::back_inserter(host_),
-                   std::ptr_fun<int, int>(tolower));
+    std::transform(prot_i, path_i, std::back_inserter(host_), ::tolower);
 
     // Everything else is query
     string::const_iterator query_i = std::find(path_i, url_s.end(), '?');
@@ -146,9 +145,9 @@ string percent_decode(const string encoded) {
             std::byte b1 = ::alnum_to_hex(*++i);
             std::byte b2 = ::alnum_to_hex(*++i);
 
-            char parsed =
-                static_cast<char>((0x10u * std::to_integer<unsigned int>(b1)) +
-                                  std::to_integer<unsigned int>(b2));
+            char parsed = static_cast<char>(
+                (0x10u * std::to_integer<unsigned int>(b1)) +
+                std::to_integer<unsigned int>(b2));
             ret += parsed;
         } else {
             ret += *i;

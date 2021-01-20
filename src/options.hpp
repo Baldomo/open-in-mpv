@@ -1,5 +1,6 @@
 #pragma once
 
+#include "players.hpp"
 #include "url.hpp"
 
 #include <cstring>
@@ -17,6 +18,7 @@ namespace oim {
  */
 class options {
   private:
+    player *player_info_;
     string url_;
     string flags_;
     string player_;
@@ -60,23 +62,23 @@ options::options() {
     fullscreen_ = false;
     pip_ = false;
     enqueue_ = false;
+    new_window_ = false;
 }
 
 string options::build_cmd() {
     std::ostringstream ret;
 
-    // TODO: some of these options work only in mpv and not other players
-    // This can be solved by adding a list of some sorts (json/toml/whatever)
-    // containing the flags to use for each functionality and each player
-    ret << player_ << " ";
+    if (player_info_ == nullptr) {
+        return "";
+    }
+
+    ret << player_info_->executable << " ";
     if (fullscreen_)
-        ret << "--fs ";
+        ret << player_info_->fullscreen << " ";
     if (pip_)
-        ret << "--ontop --no-border --autofit=384x216 --geometry=98\%:98\% ";
+        ret << player_info_->pip << " ";
     if (!flags_.empty())
         ret << flags_ << " ";
-    // NOTE: this is not needed for mpv (it always opens a new window), maybe
-    // for other players? if (this->new_window_) ret << "--new-window";
     ret << url_;
 
     return ret.str();
@@ -109,9 +111,13 @@ void options::parse(const char *url_s) {
     if (u.query().empty())
         throw string("Empty query");
 
-    url_ = oim::percent_decode(u.query_value("url"));
-    flags_ = oim::percent_decode(u.query_value("flags"));
+    url_ = percent_decode(u.query_value("url"));
+    flags_ = percent_decode(u.query_value("flags"));
     player_ = u.query_value("player", "mpv");
+
+    player_info_ = get_player_info(player_);
+    if (player_info_ == nullptr)
+        throw string("Unsupported player: ") + player_;
 
     fullscreen_ = u.query_value("fullscreen") == "1";
     pip_ = u.query_value("pip") == "1";

@@ -11,7 +11,8 @@ using std::string;
 const char *help[2] = {
     "This program is not supposed to be called from the command line!",
     "Call with 'install-protocol' to instal the xdg-compatible protocol file "
-    "in ~/.local/share/applications/"};
+    "in ~/.local/share/applications/"
+};
 
 bool install_protocol() {
     const char *protocol_file = R"([Desktop Entry]
@@ -27,8 +28,8 @@ MimeType=x-scheme-handler/mpv
     if (!homedir)
         return false;
 
-    std::ofstream protfile(string(homedir) +
-                           "/.local/share/applications/open-in-mpv.desktop");
+    std::ofstream protfile(
+        string(homedir) + "/.local/share/applications/open-in-mpv.desktop");
     protfile << protocol_file;
     protfile.flush();
     protfile.close();
