@@ -27,17 +27,20 @@ struct player {
     bool needs_ipc;
 
     /*
+     * Overrides for any extra command line flag
+     *
      * Override syntax:
      * `"*"`:    matches anything and will take precedence over any other
-     * override e.g. the pair `{"*", ""}` will void all flags
+     *           override
+     *           e.g. the pair `{"*", ""}` will void all flags
      * `"flag"`: matches the flag `--flag`
-     *           e.g. the pair `{"foo", "bar"}` will replace `--foo` with
-     * `--bar`
+     *           e.g. the pair `{"--foo", "--bar"}` will replace `--foo` with
+     *           `--bar`
      * `"%s"`:   is replaced with the original flag without the leading `--`
-     *           e.g. the pair `{"foo", "--%s-bar"}` will replace `--foo` with
-     * `--foo-bar`
+     *           e.g. the pair `{"--foo", "--%s-bar"}` will replace `--foo` with
+     *           `--foo-bar`
      *
-     * Note: command line options with parameters such as --foo=bar are
+     * Note: command line options with parameters such as `--foo=bar` are
      * considered a flags as a whole
      */
     unordered_map<string, string> flag_overrides;
@@ -61,7 +64,7 @@ unordered_map<string, player> player_info = {
         .enqueue = "--enqueue",
         .new_window = "--new-window",
         .needs_ipc = false,
-        .flag_overrides = { { "*", "--mpv-options=%s" } } } }
+        .flag_overrides = { { "*", "--mpv-options=%s" } } } },
 };
 
 player *get_player_info(string name) {

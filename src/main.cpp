@@ -61,7 +61,7 @@ int main(int argc, char const *argv[]) {
             return 0;
         }
 
-        std::cout << "Error writing to socket, opening new instance"
+        std::cerr << "Error writing to socket, opening new instance"
                   << std::endl;
     }
     std::system(mo->build_cmd().c_str());

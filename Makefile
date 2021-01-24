@@ -27,4 +27,7 @@ firefox:
 clean:
 	@rm -f open-in-mpv Firefox.zip Chrome.crx
 
-.PHONY: all release debug install uninstall firefox clean
+fmt:
+	clang-format -i src/*.{hpp,cpp}
+
+.PHONY: all release debug install uninstall firefox clean fmt
