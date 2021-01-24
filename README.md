@@ -5,11 +5,11 @@ This is a simple web extension (for Chrome and Firefox) which helps open any vid
 The extension itself shares a lot of code with the one from the awesome [iina](https://github.com/iina/iina), while the (bare) backend is written in C++20 (this is a rewrite from Rust).
 
 - [Installation](#installation)
-  - [The `mpv://` protocol](#the-mpv-protocol)
-  - [Playlist and `enqueue` functionality](#playlist-and-enqueue-functionality)
-  - [Player support](#player-support)
+- [The `mpv://` protocol](#the-mpv-protocol)
+- [Playlist and `enqueue` functionality](#playlist-and-enqueue-functionality)
+- [Player support](#player-support)
 
-## Installation
+### Installation
 > Compiled binaries and packed extensions can be found in the [releases page](https://github.com/Baldomo/open-in-mpv/releases).
 
 This project does not require any external library to run or compile release builds. To build and install `open-in-mpv`, just run
