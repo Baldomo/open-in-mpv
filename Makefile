@@ -7,10 +7,10 @@ SRCS = src/curl.hpp \
 
 all: release firefox
 
-release:
+release: $(SRCS)
 	$(CXX) $(CXXFLAGS_release) -o open-in-mpv src/main.cpp
 
-debug:
+debug: $(SRCS)
 	$(CXX) $(CXXFLAGS_debug) -o open-in-mpv src/main.cpp
 
 install: release
