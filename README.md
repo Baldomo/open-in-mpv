@@ -1,17 +1,20 @@
 <h1 align="center">open-in-mpv</h1>
 
 <p align="center">
-<a href="https://github.com/Baldomo/open-in-mpv/releases/latest" alt="Chromium extension (signed)"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjguOTY5OTk5OTk5OTk5OTciIGhlaWdodD0iMzUiIHZpZXdCb3g9IjAgMCAxNjguOTY5OTk5OTk5OTk5OTcgMzUiPjxyZWN0IGNsYXNzPSJzdmdfX3JlY3QiIHg9IjAiIHk9IjAiIHdpZHRoPSIxMTEuNzg5OTk5OTk5OTk5OTkiIGhlaWdodD0iMzUiIGZpbGw9IiMzOTZCRDciLz48cmVjdCBjbGFzcz0ic3ZnX19yZWN0IiB4PSIxMDkuNzg5OTk5OTk5OTk5OTkiIHk9IjAiIHdpZHRoPSI1OS4xNzk5OTk5OTk5OTk5OSIgaGVpZ2h0PSIzNSIgZmlsbD0iI0EyQzJGQSIvPjxwYXRoIGNsYXNzPSJzdmdfX3RleHQiIGQ9Ik0xMy45NSAxOC4xOUwxMy45NSAxOC4xOUwxMy45NSAxNy4zOVExMy45NSAxNi4xOSAxNC4zOCAxNS4yN1ExNC44MCAxNC4zNSAxNS42MCAxMy44NVExNi40MCAxMy4zNSAxNy40NSAxMy4zNUwxNy40NSAxMy4zNVExOC44NiAxMy4zNSAxOS43MyAxNC4xMlEyMC41OSAxNC44OSAyMC43MyAxNi4yOUwyMC43MyAxNi4yOUwxOS4yNSAxNi4yOVExOS4xNCAxNS4zNyAxOC43MSAxNC45NlExOC4yOCAxNC41NSAxNy40NSAxNC41NUwxNy40NSAxNC41NVExNi40OCAxNC41NSAxNS45NyAxNS4yNlExNS40NSAxNS45NiAxNS40NCAxNy4zM0wxNS40NCAxNy4zM0wxNS40NCAxOC4wOVExNS40NCAxOS40NyAxNS45MyAyMC4yMFExNi40MyAyMC45MiAxNy4zOCAyMC45MkwxNy4zOCAyMC45MlExOC4yNSAyMC45MiAxOC42OSAyMC41M1ExOS4xMyAyMC4xNCAxOS4yNSAxOS4yMkwxOS4yNSAxOS4yMkwyMC43MyAxOS4yMlEyMC42MCAyMC41OSAxOS43MiAyMS4zNVExOC44NCAyMi4xMiAxNy4zOCAyMi4xMkwxNy4zOCAyMi4xMlExNi4zNiAyMi4xMiAxNS41OSAyMS42M1ExNC44MSAyMS4xNSAxNC4zOSAyMC4yNlExMy45NyAxOS4zNyAxMy45NSAxOC4xOVpNMjYuNTIgMjJMMjUuMDQgMjJMMjUuMDQgMTMuNDdMMjYuNTIgMTMuNDdMMjYuNTIgMTcuMDJMMzAuMzQgMTcuMDJMMzAuMzQgMTMuNDdMMzEuODEgMTMuNDdMMzEuODEgMjJMMzAuMzQgMjJMMzAuMzQgMTguMjFMMjYuNTIgMTguMjFMMjYuNTIgMjJaTTM4LjA0IDIyTDM2LjU1IDIyTDM2LjU1IDEzLjQ3TDM5LjU1IDEzLjQ3UTQxLjAzIDEzLjQ3IDQxLjgzIDE0LjEzUTQyLjY0IDE0Ljc5IDQyLjY0IDE2LjA1TDQyLjY0IDE2LjA1UTQyLjY0IDE2LjkwIDQyLjIyIDE3LjQ4UTQxLjgxIDE4LjA2IDQxLjA3IDE4LjM3TDQxLjA3IDE4LjM3TDQyLjk5IDIxLjkyTDQyLjk5IDIyTDQxLjQwIDIyTDM5LjY5IDE4LjcxTDM4LjA0IDE4LjcxTDM4LjA0IDIyWk0zOC4wNCAxNC42NkwzOC4wNCAxNy41MkwzOS41NiAxNy41MlE0MC4zMSAxNy41MiA0MC43MyAxNy4xNVE0MS4xNSAxNi43NyA0MS4xNSAxNi4xMUw0MS4xNSAxNi4xMVE0MS4xNSAxNS40MyA0MC43NiAxNS4wNVE0MC4zNyAxNC42OCAzOS42MCAxNC42NkwzOS42MCAxNC42NkwzOC4wNCAxNC42NlpNNDYuNzYgMTguMDBMNDYuNzYgMTguMDBMNDYuNzYgMTcuNTJRNDYuNzYgMTYuMjggNDcuMjAgMTUuMzJRNDcuNjQgMTQuMzcgNDguNDUgMTMuODZRNDkuMjYgMTMuMzUgNTAuMzAgMTMuMzVRNTEuMzQgMTMuMzUgNTIuMTUgMTMuODVRNTIuOTUgMTQuMzUgNTMuMzkgMTUuMjlRNTMuODMgMTYuMjMgNTMuODQgMTcuNDhMNTMuODQgMTcuNDhMNTMuODQgMTcuOTZRNTMuODQgMTkuMjEgNTMuNDAgMjAuMTZRNTIuOTcgMjEuMTAgNTIuMTcgMjEuNjFRNTEuMzYgMjIuMTIgNTAuMzEgMjIuMTJMNTAuMzEgMjIuMTJRNDkuMjcgMjIuMTIgNDguNDYgMjEuNjFRNDcuNjUgMjEuMTAgNDcuMjEgMjAuMTdRNDYuNzcgMTkuMjMgNDYuNzYgMTguMDBaTTQ4LjI0IDE3LjQ2TDQ4LjI0IDE3Ljk2UTQ4LjI0IDE5LjM2IDQ4Ljc5IDIwLjEzUTQ5LjM0IDIwLjkwIDUwLjMxIDIwLjkwTDUwLjMxIDIwLjkwUTUxLjMwIDIwLjkwIDUxLjgzIDIwLjE1UTUyLjM2IDE5LjQwIDUyLjM2IDE3Ljk2TDUyLjM2IDE3Ljk2TDUyLjM2IDE3LjUxUTUyLjM2IDE2LjA5IDUxLjgyIDE1LjM0UTUxLjI4IDE0LjU4IDUwLjMwIDE0LjU4TDUwLjMwIDE0LjU4UTQ5LjM0IDE0LjU4IDQ4LjgwIDE1LjMzUTQ4LjI1IDE2LjA5IDQ4LjI0IDE3LjQ2TDQ4LjI0IDE3LjQ2Wk01OS43OCAyMkw1OC4zMCAyMkw1OC4zMCAxMy40N0w2MC4yMyAxMy40N0w2Mi42OSAyMC4wMUw2NS4xNCAxMy40N0w2Ny4wNiAxMy40N0w2Ny4wNiAyMkw2NS41OCAyMkw2NS41OCAxOS4xOUw2NS43MyAxNS40M0w2My4yMSAyMkw2Mi4xNSAyMkw1OS42MyAxNS40M0w1OS43OCAxOS4xOUw1OS43OCAyMlpNNzMuMzYgMjJMNzEuODkgMjJMNzEuODkgMTMuNDdMNzMuMzYgMTMuNDdMNzMuMzYgMjJaTTc4LjA0IDE5LjE2TDc4LjA0IDE5LjE2TDc4LjA0IDEzLjQ3TDc5LjUxIDEzLjQ3TDc5LjUxIDE5LjE4UTc5LjUxIDIwLjAzIDc5Ljk1IDIwLjQ4UTgwLjM4IDIwLjkzIDgxLjIyIDIwLjkzTDgxLjIyIDIwLjkzUTgyLjk0IDIwLjkzIDgyLjk0IDE5LjEzTDgyLjk0IDE5LjEzTDgyLjk0IDEzLjQ3TDg0LjQxIDEzLjQ3TDg0LjQxIDE5LjE3UTg0LjQxIDIwLjUzIDgzLjU0IDIxLjMyUTgyLjY3IDIyLjEyIDgxLjIyIDIyLjEyTDgxLjIyIDIyLjEyUTc5Ljc2IDIyLjEyIDc4LjkwIDIxLjMzUTc4LjA0IDIwLjU1IDc4LjA0IDE5LjE2Wk05MC40NiAyMkw4OC45OCAyMkw4OC45OCAxMy40N0w5MC45MCAxMy40N0w5My4zNyAyMC4wMUw5NS44MiAxMy40N0w5Ny43NCAxMy40N0w5Ny43NCAyMkw5Ni4yNiAyMkw5Ni4yNiAxOS4xOUw5Ni40MSAxNS40M0w5My44OSAyMkw5Mi44MyAyMkw5MC4zMSAxNS40M0w5MC40NiAxOS4xOUw5MC40NiAyMloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBjbGFzcz0ic3ZnX190ZXh0IiBkPSJNMTIzLjU1IDE3LjgwTDEyMy41NSAxNy44MFExMjMuNTUgMTYuNTQgMTI0LjE1IDE1LjU0UTEyNC43NSAxNC41NSAxMjUuODAgMTMuOTlRMTI2Ljg1IDEzLjQzIDEyOC4xNyAxMy40M0wxMjguMTcgMTMuNDNRMTI5LjMyIDEzLjQzIDEzMC4yNCAxMy44NFExMzEuMTcgMTQuMjUgMTMxLjc4IDE1LjAyTDEzMS43OCAxNS4wMkwxMzAuMjcgMTYuMzlRMTI5LjQ2IDE1LjQwIDEyOC4yOSAxNS40MEwxMjguMjkgMTUuNDBRMTI3LjYwIDE1LjQwIDEyNy4wNyAxNS43MFExMjYuNTQgMTYgMTI2LjI0IDE2LjU0UTEyNS45NSAxNy4wOSAxMjUuOTUgMTcuODBMMTI1Ljk1IDE3LjgwUTEyNS45NSAxOC41MSAxMjYuMjQgMTkuMDVRMTI2LjU0IDE5LjYwIDEyNy4wNyAxOS45MFExMjcuNjAgMjAuMjAgMTI4LjI5IDIwLjIwTDEyOC4yOSAyMC4yMFExMjkuNDYgMjAuMjAgMTMwLjI3IDE5LjIyTDEzMC4yNyAxOS4yMkwxMzEuNzggMjAuNThRMTMxLjE3IDIxLjM1IDEzMC4yNSAyMS43NlExMjkuMzIgMjIuMTcgMTI4LjE3IDIyLjE3TDEyOC4xNyAyMi4xN1ExMjYuODUgMjIuMTcgMTI1LjgwIDIxLjYxUTEyNC43NSAyMS4wNSAxMjQuMTUgMjAuMDVRMTIzLjU1IDE5LjA2IDEyMy41NSAxNy44MFpNMTM4LjcwIDIyTDEzNi4zMiAyMkwxMzYuMzIgMTMuNjBMMTQwLjE2IDEzLjYwUTE0MS4zMCAxMy42MCAxNDIuMTQgMTMuOThRMTQyLjk4IDE0LjM1IDE0My40NCAxNS4wNlExNDMuODkgMTUuNzYgMTQzLjg5IDE2LjcxTDE0My44OSAxNi43MVExNDMuODkgMTcuNjIgMTQzLjQ3IDE4LjMwUTE0My4wNCAxOC45OCAxNDIuMjUgMTkuMzZMMTQyLjI1IDE5LjM2TDE0NC4wNiAyMkwxNDEuNTEgMjJMMTM5Ljk5IDE5Ljc3TDEzOC43MCAxOS43N0wxMzguNzAgMjJaTTEzOC43MCAxNS40N0wxMzguNzAgMTcuOTNMMTQwLjAxIDE3LjkzUTE0MC43NSAxNy45MyAxNDEuMTIgMTcuNjFRMTQxLjQ5IDE3LjI5IDE0MS40OSAxNi43MUwxNDEuNDkgMTYuNzFRMTQxLjQ5IDE2LjEyIDE0MS4xMiAxNS43OVExNDAuNzUgMTUuNDcgMTQwLjAxIDE1LjQ3TDE0MC4wMSAxNS40N0wxMzguNzAgMTUuNDdaTTE1MC41MyAyMkwxNDcuODIgMjJMMTUwLjg4IDE3Ljc1TDE0Ny45NSAxMy42MEwxNTAuNjMgMTMuNjBMMTUyLjMxIDE2LjAyTDE1My45NiAxMy42MEwxNTYuNTMgMTMuNjBMMTUzLjYwIDE3LjY2TDE1Ni43MyAyMkwxNTMuOTkgMjJMMTUyLjI1IDE5LjQwTDE1MC41MyAyMloiIGZpbGw9IiNGRkZGRkYiIHg9IjEyMi43ODk5OTk5OTk5OTk5OSIvPjwvc3ZnPg=="></a>
-<a href="https://addons.mozilla.org/addon/iina-open-in-mpv/" alt="Firefox extension (AMO)"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDMuNDQiIGhlaWdodD0iMzUiIHZpZXdCb3g9IjAgMCAxNDMuNDQgMzUiPjxyZWN0IGNsYXNzPSJzdmdfX3JlY3QiIHg9IjAiIHk9IjAiIHdpZHRoPSI5MS41NSIgaGVpZ2h0PSIzNSIgZmlsbD0iI0ZGNTA1RiIvPjxyZWN0IGNsYXNzPSJzdmdfX3JlY3QiIHg9Ijg5LjU1IiB5PSIwIiB3aWR0aD0iNTMuODkwMDAwMDAwMDAwMDE1IiBoZWlnaHQ9IjM1IiBmaWxsPSIjRkY3MTM5Ii8+PHBhdGggY2xhc3M9InN2Z19fdGV4dCIgZD0iTTE1LjcwIDIyTDE0LjIyIDIyTDE0LjIyIDEzLjQ3TDE5LjY0IDEzLjQ3TDE5LjY0IDE0LjY2TDE1LjcwIDE0LjY2TDE1LjcwIDE3LjIwTDE5LjEzIDE3LjIwTDE5LjEzIDE4LjM4TDE1LjcwIDE4LjM4TDE1LjcwIDIyWk0yNS4zNiAyMkwyMy44OSAyMkwyMy44OSAxMy40N0wyNS4zNiAxMy40N0wyNS4zNiAyMlpNMzEuNjUgMjJMMzAuMTcgMjJMMzAuMTcgMTMuNDdMMzMuMTcgMTMuNDdRMzQuNjUgMTMuNDcgMzUuNDUgMTQuMTNRMzYuMjUgMTQuNzkgMzYuMjUgMTYuMDVMMzYuMjUgMTYuMDVRMzYuMjUgMTYuOTAgMzUuODQgMTcuNDhRMzUuNDMgMTguMDYgMzQuNjkgMTguMzdMMzQuNjkgMTguMzdMMzYuNjEgMjEuOTJMMzYuNjEgMjJMMzUuMDIgMjJMMzMuMzEgMTguNzFMMzEuNjUgMTguNzFMMzEuNjUgMjJaTTMxLjY1IDE0LjY2TDMxLjY1IDE3LjUyTDMzLjE4IDE3LjUyUTMzLjkzIDE3LjUyIDM0LjM1IDE3LjE1UTM0Ljc3IDE2Ljc3IDM0Ljc3IDE2LjExTDM0Ljc3IDE2LjExUTM0Ljc3IDE1LjQzIDM0LjM4IDE1LjA1UTMzLjk5IDE0LjY4IDMzLjIyIDE0LjY2TDMzLjIyIDE0LjY2TDMxLjY1IDE0LjY2Wk00Ni4yMyAyMkw0MC42NSAyMkw0MC42NSAxMy40N0w0Ni4xOSAxMy40N0w0Ni4xOSAxNC42Nkw0Mi4xMyAxNC42Nkw0Mi4xMyAxNy4wMkw0NS42NCAxNy4wMkw0NS42NCAxOC4xOUw0Mi4xMyAxOC4xOUw0Mi4xMyAyMC44Mkw0Ni4yMyAyMC44Mkw0Ni4yMyAyMlpNNTEuOTAgMjJMNTAuNDIgMjJMNTAuNDIgMTMuNDdMNTUuODQgMTMuNDdMNTUuODQgMTQuNjZMNTEuOTAgMTQuNjZMNTEuOTAgMTcuMjBMNTUuMzQgMTcuMjBMNTUuMzQgMTguMzhMNTEuOTAgMTguMzhMNTEuOTAgMjJaTTU5LjczIDE4LjAwTDU5LjczIDE4LjAwTDU5LjczIDE3LjUyUTU5LjczIDE2LjI4IDYwLjE4IDE1LjMyUTYwLjYyIDE0LjM3IDYxLjQyIDEzLjg2UTYyLjIzIDEzLjM1IDYzLjI3IDEzLjM1UTY0LjMxIDEzLjM1IDY1LjEyIDEzLjg1UTY1LjkzIDE0LjM1IDY2LjM3IDE1LjI5UTY2LjgxIDE2LjIzIDY2LjgxIDE3LjQ4TDY2LjgxIDE3LjQ4TDY2LjgxIDE3Ljk2UTY2LjgxIDE5LjIxIDY2LjM4IDIwLjE2UTY1Ljk0IDIxLjEwIDY1LjE0IDIxLjYxUTY0LjMzIDIyLjEyIDYzLjI4IDIyLjEyTDYzLjI4IDIyLjEyUTYyLjI1IDIyLjEyIDYxLjQzIDIxLjYxUTYwLjYyIDIxLjEwIDYwLjE4IDIwLjE3UTU5Ljc0IDE5LjIzIDU5LjczIDE4LjAwWk02MS4yMiAxNy40Nkw2MS4yMiAxNy45NlE2MS4yMiAxOS4zNiA2MS43NiAyMC4xM1E2Mi4zMSAyMC45MCA2My4yOCAyMC45MEw2My4yOCAyMC45MFE2NC4yNyAyMC45MCA2NC44MCAyMC4xNVE2NS4zMyAxOS40MCA2NS4zMyAxNy45Nkw2NS4zMyAxNy45Nkw2NS4zMyAxNy41MVE2NS4zMyAxNi4wOSA2NC43OSAxNS4zNFE2NC4yNiAxNC41OCA2My4yNyAxNC41OEw2My4yNyAxNC41OFE2Mi4zMSAxNC41OCA2MS43NyAxNS4zM1E2MS4yMyAxNi4wOSA2MS4yMiAxNy40Nkw2MS4yMiAxNy40NlpNNzIuMzcgMjJMNzAuNjUgMjJMNzMuMjkgMTcuNzBMNzAuNzEgMTMuNDdMNzIuNDIgMTMuNDdMNzQuMjEgMTYuNTVMNzYuMDAgMTMuNDdMNzcuNzIgMTMuNDdMNzUuMTQgMTcuNzBMNzcuNzcgMjJMNzYuMDUgMjJMNzQuMjEgMTguODdMNzIuMzcgMjJaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggY2xhc3M9InN2Z19fdGV4dCIgZD0iTTEwNS41OSAyMkwxMDIuODggMjJMMTA1Ljk0IDE3Ljc1TDEwMy4wMSAxMy42MEwxMDUuNjggMTMuNjBMMTA3LjM2IDE2LjAyTDEwOS4wMiAxMy42MEwxMTEuNTkgMTMuNjBMMTA4LjY2IDE3LjY2TDExMS43OCAyMkwxMDkuMDUgMjJMMTA3LjMxIDE5LjQwTDEwNS41OSAyMlpNMTE4LjQ0IDIyTDExNi4wNyAyMkwxMTYuMDcgMTMuNjBMMTE5LjkxIDEzLjYwUTEyMS4wNSAxMy42MCAxMjEuODkgMTMuOThRMTIyLjczIDE0LjM1IDEyMy4xOSAxNS4wNlExMjMuNjQgMTUuNzYgMTIzLjY0IDE2LjcxTDEyMy42NCAxNi43MVExMjMuNjQgMTcuNjYgMTIzLjE5IDE4LjM1UTEyMi43MyAxOS4wNSAxMjEuODkgMTkuNDJRMTIxLjA1IDE5LjgwIDExOS45MSAxOS44MEwxMTkuOTEgMTkuODBMMTE4LjQ0IDE5LjgwTDExOC40NCAyMlpNMTE4LjQ0IDE1LjQ3TDExOC40NCAxNy45M0wxMTkuNzYgMTcuOTNRMTIwLjUwIDE3LjkzIDEyMC44NyAxNy42MVExMjEuMjQgMTcuMjkgMTIxLjI0IDE2LjcxTDEyMS4yNCAxNi43MVExMjEuMjQgMTYuMTIgMTIwLjg3IDE1LjgwUTEyMC41MCAxNS40NyAxMTkuNzYgMTUuNDdMMTE5Ljc2IDE1LjQ3TDExOC40NCAxNS40N1pNMTMwLjc3IDIyTDEyOC4zOSAyMkwxMjguMzkgMTMuNjBMMTMwLjc3IDEzLjYwTDEzMC43NyAyMloiIGZpbGw9IiNGRkZGRkYiIHg9IjEwMi41NSIvPjwvc3ZnPg=="></a>
+<a href="https://github.com/Baldomo/open-in-mpv/releases/latest" alt="Chromium extension (signed)"><img src="images/badge-chromium.png"></a>
+<a href="https://addons.mozilla.org/addon/iina-open-in-mpv/" alt="Firefox extension (AMO)"><img src="images/badge-firefox.png"></a>
 </p>
 
 ---
 
 This is a simple web extension (for Chrome and Firefox) which helps open any video in the currently open tab in the [mpv player](https://mpv.io).
 
-The extension itself shares a lot of code with the one from the awesome [iina](https://github.com/iina/iina), while the (bare) backend is written in C++20 (this is a rewrite from Rust).
+The extension itself shares a lot of code with the one from the awesome [iina](https://github.com/iina/iina), while the (bare) backend is written in Go (this is a rewrite from C++).
 
 - [Installation](#installation)
+- [Configuration](#configuration)
+  - [Flag overrides](#flag-overrides)
+  - [Example](#example)
 - [The `mpv://` protocol](#the-mpv-protocol)
 - [Playlist and `enqueue` functionality](#playlist-and-enqueue-functionality)
 - [Player support](#player-support)
@@ -19,10 +22,84 @@ The extension itself shares a lot of code with the one from the awesome [iina](h
 ### Installation
 > Compiled binaries and packed extensions can be found in the [releases page](https://github.com/Baldomo/open-in-mpv/releases).
 
-This project does not require any external library to run or compile release builds. To build and install `open-in-mpv`, just run
+To build and install `open-in-mpv` and the `mpv://` protocol handler, just run
 
-```sh
-sudo make install
+```
+$ sudo make install
+$ make install-protocol
+```
+
+### Configuration
+The configuration file has to be named `config.yml` and can be placed in the same folder as the executable or in:
+- Windows: `C:\Users\<user>\AppData\Roaming\open-in-mpv\`
+- Linux: `~/.config/open-in-mpv/`
+- Mac: `~/Library/Application Support/open-in-mpv/`
+
+The configuration file has the following structure:
+
+```yaml
+fake: [ open_in_mpv.Player ]
+  name: [ string ]
+  executable: [ string ]
+  fullscreen: [ string ]
+  pip: [ string ]
+  enqueue: [ string ]
+  new_window: [ string ]
+  needs_ipc: [ true | false ]
+  flag_overrides: [ map[string]string ]
+```
+
+> See [the default configuration](config.yml) as an example
+
+And the `open_in_mpv.Player` object is defined as follows:
+
+| Key           | Example value                          | Description |
+|---------------|----------------------------------------|--------------|
+| `name` | `mpv` | Full name of the video player; not used internally |
+| `executable` | `mpv` | The player's binary path/name (doesn't need full path if already in `$PATH`) |
+| `fullscreen` | `"--fs"` | Flag override to open the player in fullscreen (can be empty) |
+| `pip` | `"--pip"` | Flag override to open the player in picture-in-picture mode (can be empty) |
+| `enqueue` | `"--enqueue"` | Flag override to add the video to the player's queue (can be empty) |
+| `new_window` | `"--new-window"` | Flag override to force open a new player window with the video (can be empty) |
+| `needs_ipc` | `false` | Controls whether the player needs IPC communication (only generates mpv-compatible JSON commands, used for enqueing videos) |
+| `flag_overrides` | `"*": "--mpv-options=%s"` | Defines arbitrary text overrides for command line flags (see below) |
+
+#### Flag overrides
+
+The configuration for a player can contain overrides for command line flags defined in the web extension's configuration page, so not to make a different player crash/not start because the flags are not accepted. With the correct overrides any kind of flag passed in [the URL](#the-mpv-protocol) by the extension will either be ignored or replaced with a pattern/prefix/suffix so that it becomes valid for the player in use.
+
+- `"*"`: matches anything and will take precedence over any other override 
+  - e.g. the pair `"*": ""` will void all flags
+- `"flag"`: matches the flag `--flag` 
+  - e.g. the pair `"--foo": "--bar"` will replace `--foo` with `--bar`
+- `"%s"`: is replaced with the original flag without any leading dash 
+  - e.g. the pair `"--foo": "--%s-bar"` will replace `--foo` with `--foo-bar`
+
+> Note: command line options with parameters such as `--foo=bar` are considered as a whole, single flag
+
+Celluloid, for example, expects all mpv-related command line flags to be prefixed with `--mpv-`, so its configuration will contain the following overrides:
+
+```yaml
+flag_overrides: 
+  "*": "--mpv-%s"
+```
+
+#### Example
+
+This is a full example of a fictitious player definition in the configuration file:
+
+```yaml
+players:
+  fake:
+    name: fake-player
+    executable: fakeplayer
+    fullscreen: "--fs"
+    pip: "--ontop --no-border --autofit=384x216 --geometry=98\\%:98\\%"
+    enqueue: "--enqueue"
+    new_window: ""
+    needs_ipc: true
+    flag_overrides:
+      "*": "--mpv-options=%s"
 ```
 
 ### The `mpv://` protocol
@@ -37,7 +114,7 @@ Please note that this specification is enforced quite strictly, as the program w
 The table below is a simple documentation of the URL query keys and values used to let the `open-in-mpv` executable what to do.
 
 | Key           | Example value                          | Description |
-|---------------|----------------------------------------|---------------|
+|---------------|----------------------------------------|-------------|
 | `url`         | `https%3A%2F%2Fyoutu.be%2FdQw4w9WgXcQ` | The actual file URL to be played, URL-encoded |
 | `full_screen` | `1`                                    | Controls whether the video is played in fullscreen mode |
 | `pip`         | `1`                                    | Simulates a picture-in-picture mode (only works with mpv for now) |
@@ -47,11 +124,11 @@ The table below is a simple documentation of the URL query keys and values used 
 | `flags`       | `--vo%3Dgpu`                           | Custom command options and flags to be passed to the video player, URL-encoded |
 
 ### Playlist and `enqueue` functionality
-For `enqueue` to work properly with any mpv-based player (provided it supports mpv's IPC), the player has to read commands from a socket. This can be achieved by adding the following line to the video player's configuration (usually `.config/mpv/mpv.conf` for mpv).
+For `enqueue` to work properly with any mpv-based player (provided it supports mpv's IPC), the player has to read commands from a socket. This can be achieved by adding the following line to the video player's configuration (usually `$HOME/.config/mpv/mpv.conf` for mpv).
 
 ```conf
 input-ipc-server=/tmp/mpvsocket
 ```
 
 ### Player support
-Supported players are defined in `src/players.hpp`, where the struct `player` defines supported functionality and command line flag overrides. To request support for a player you're welcome to open a new issue or a pull request.
+Supported players are defined in `config.yml`, where the struct `Player` ([see `config.go`](config.go)) defines supported functionality and command line flag overrides. To request support for a player you're welcome to open a new issue or a pull request or just add your own in your configuration file.

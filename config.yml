@@ -1,0 +1,30 @@
+---
+players:
+  mpv:
+    name: mpv
+    executable: mpv
+    fullscreen: "--fs"
+    pip: "--ontop --no-border --autofit=384x216 --geometry=98\\%:98\\%"
+    enqueue: ""
+    new_window: ""
+    needs_ipc: true
+    flag_overrides: {}
+  celluloid:
+    name: Celluloid
+    executable: celluloid
+    fullscreen: ""
+    pip: ""
+    enqueue: "--enqueue"
+    new_window: "--new-window"
+    needs_ipc: false
+    flag_overrides: 
+      "*": "--mpv-%s"
+  mpvnet:
+    name: mpv.net
+    executable: mpvnet.exe
+    fullscreen: "--fs"
+    pip: "--ontop --no-border --autofit=384x216 --geometry=98\\%:98\\%"
+    enqueue: "--queue"
+    new_window: ""
+    needs_ipc: false
+    flag_overrides: {}

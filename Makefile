@@ -1,35 +1,31 @@
-INCLUDES = -Isrc/
-CXXFLAGS_debug = -Wall -DDEBUG -g -rdynamic -std=c++2a $(INCLUDES)
-CXXFLAGS_release = -Wall -fvisibility=hidden -fvisibility-inlines-hidden -std=c++2a -march=x86-64 -mtune=generic -O3 -pipe -fno-plt $(INCLUDES)
-SRCS = src/ipc.hpp \
-	   src/options.hpp \
-       src/players.hpp \
-       src/url.hpp \
-	   src/main.cpp
+SRC:=config.go ipc.go options.go
+EXT_SRC:=$(wildcard extension/Chrome/*) extension/Firefox/manifest.json
 
-all: release firefox
+all: build/open-in-mpv
 
-release: $(SRCS)
-	$(CXX) $(CXXFLAGS_release) -o open-in-mpv src/main.cpp
+build/open-in-mpv: $(SRC)
+	@mkdir -p build
+	go build -ldflags="-s -w" -o build/open-in-mpv ./cmd/open-in-mpv
 
-debug: $(SRCS)
-	$(CXX) $(CXXFLAGS_debug) -o open-in-mpv src/main.cpp
+build/Firefox.zip: $(EXT_SRC)
+	@mkdir -p build
+	cp -t extension/Firefox extension/Chrome/{*.html,*.js,*.png,*.css}
+	zip -r build/Firefox.zip extension/Firefox/
+	@rm extension/Firefox/{*.html,*.js,*.png,*.css}
 
-install: release
-	cp open-in-mpv /usr/bin
+install: build/open-in-mpv
+	cp build/open-in-mpv /usr/bin
+
+install-protocol:
+	scripts/install-protocol.sh
 
 uninstall:
 	rm /usr/bin/open-in-mpv
 
-firefox:
-	cp -t Firefox Chrome/{*.html,*.js,*.png,*.css}
-	pushd Firefox && zip ../Firefox.zip * && popd
-	@rm Firefox/{*.html,*.js,*.png,*.css}
-
 clean:
-	@rm -f open-in-mpv Firefox.zip Chrome.crx
+	rm -rf build/*
 
-fmt:
-	clang-format -i src/*.{hpp,cpp}
+test:
+	go test ./...
 
-.PHONY: all release debug install uninstall firefox clean fmt
+.PHONY: all install install-protocol uninstall clean test
