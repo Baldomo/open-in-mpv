@@ -17,7 +17,7 @@ build/linux.tar: build/linux/open-in-mpv
 
 build/mac/open-in-mpv.app: $(SRC) scripts/Info.plist builddir
 	@# See https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html
-    @# and https://apple.stackexchange.com/questions/253184/associating-protocol-handler-in-mac-os-x
+	@# and https://apple.stackexchange.com/questions/253184/associating-protocol-handler-in-mac-os-x
 	@echo -e "\n# Building MacOS app bundle"
 	@mkdir -p $@/Contents
 	env GOOS=darwin GOARCh=amd64 go build -ldflags="-s -w" -o $@/Contents/MacOS/open-in-mpv ./cmd/open-in-mpv
