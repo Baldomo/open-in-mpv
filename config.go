@@ -28,6 +28,9 @@ type Player struct {
 	NewWindow string `yaml:"new_window"`
 	// Controls whether this player needs IPC command to enqueue videos
 	NeedsIpc bool `yaml:"needs_ipc"`
+	// Controls which (video URL) schemes are to be opened by the current
+	// player. There is no match-all, each protocol has to be manuall specified
+	SupportedSchemes []string `yaml:"supported_protocols"`
 	// Overrides for any generic flag
 	FlagOverrides map[string]string `yaml:"flag_overrides"`
 }
@@ -35,6 +38,11 @@ type Player struct {
 // Top-level configuration object, maps a player by name to its Player object
 type Config struct {
 	Players map[string]Player
+}
+
+var defaultSupportedSchemas = []string{
+	"http",
+	"https",
 }
 
 var defaultConfig = Config{
@@ -52,7 +60,8 @@ var defaultConfig = Config{
 	},
 }
 
-// Tries to load configuration file with fallback
+// Tries to load configuration file with fallback to a default configuration
+// object
 func LoadConfig() error {
 	confDirs := configdir.New("", "open-in-mpv")
 	confDirs.LocalPath, _ = filepath.Abs(".")
@@ -68,11 +77,25 @@ func LoadConfig() error {
 		return err
 	}
 
-	return yaml.Unmarshal(data, &defaultConfig)
+	err = yaml.Unmarshal(data, &defaultConfig)
+	if err != nil {
+		return err
+	}
+
+	// If the player has no external configuration, use strict defaults
+	for name, player := range defaultConfig.Players {
+		if len(player.SupportedSchemes) == 0 {
+			log.Printf("Player '%s' has no schemas, setting to defaults", player.Name)
+			player.SupportedSchemes = defaultSupportedSchemas
+			defaultConfig.Players[name] = player
+		}
+	}
+
+	return nil
 }
 
 // Returns player information for the given name if present, otherwise nil
-func GetPlayerInfo(name string) *Player {
+func GetPlayerConfig(name string) *Player {
 	lowerName := strings.ToLower(name)
 	if p, ok := defaultConfig.Players[lowerName]; ok {
 		return &p

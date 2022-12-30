@@ -1,68 +1,68 @@
 body {
-    font-family: 'Inter', Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.4;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 .container {
-    width: 90%;
-    max-width: 880px;
-    margin: 1rem auto;
-    background: #f4f4f4;
-    border-radius: 6px;
-    box-shadow: 0 0 16px rgba(0,0,0,.2);
+  width: 90%;
+  max-width: 880px;
+  margin: 1rem auto;
+  background: #f4f4f4;
+  border-radius: 6px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, .2);
 }
 
 .title {
-    padding: 1rem;
-    margin: 0;
+  padding: 1rem;
+  margin: 0;
 }
 
 .item:not(:last-child) {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .option {
-    padding: 1rem;
-    border-top: 1px solid #e4e4e4;
+  padding: 1rem;
+  border-top: 1px solid #e4e4e4;
 }
 
 .option:not(:last-child) {
-    border-bottom: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
 }
 
 .option .option-title {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .option .option-details {
-    padding-left: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .option .option-details:not(:first-child) {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .option .option-details:not(:last-child) {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-.option-details > p {
-    color: rgb(70, 70, 70);
-    margin-block: 0;
+.option-details>p {
+  color: rgb(70, 70, 70);
+  margin-block: 0;
 }
 
 input[type="text"] {
-    font-family: monospace;
-    border: 1px solid rgb(169, 169, 169);
-    margin: 0 0 0.5rem 0;
-    padding: 0.2rem;
-    border-radius: 6px;
+  font-family: monospace;
+  border: 1px solid rgb(169, 169, 169);
+  margin: 0 0 0.5rem 0;
+  padding: 0.2rem;
+  border-radius: 6px;
 }
 
 select {
-    margin: 0.1rem;
-    padding: 0.2rem;
-    border-radius: 6px;
-    background-color: #fff;
+  margin: 0.1rem;
+  padding: 0.2rem;
+  border-radius: 6px;
+  background-color: #fff;
 }
