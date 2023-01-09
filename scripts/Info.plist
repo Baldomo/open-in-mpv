@@ -27,7 +27,9 @@
     <array>
         <dict>
             <key>CFBundleURLName</key>
-            <string>open-in-mpv wrapper</string>
+            <string>open-in-mpv</string>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>mpv</string>

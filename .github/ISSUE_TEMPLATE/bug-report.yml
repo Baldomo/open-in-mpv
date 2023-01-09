@@ -1,0 +1,93 @@
+name: "Bug Report"
+title: "bug: "
+description: Create a bug report for us to fix.
+labels: ["bug"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Notice
+        - If you want to suggest a new feature, use the **Feature Request** template.
+        - Write your issue in clear and understandable English.
+  - type: textarea
+    id: description
+    attributes:
+      label: "Bug Description"
+      description: "A clear and detailed description of what the bug is."
+      placeholder: "Explain your problem as clearly and in detail as possible."
+    validations:
+      required: true
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: How to Reproduce
+      description: "Steps to reproduce the behavior and what should be observed in the end."
+      placeholder: "Tell us step by step how we can replicate your problem and what we should see in the end."
+      value: |
+          Steps to reproduce the behavior:
+          1. Go to '....'
+          2. Click on '....'
+          3. Do '....'
+          4. See '....'
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: "A clear and detailed description of what you think should happen."
+      placeholder: "Tell us what the app should normally do."
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: "Version"
+      description: "Some bugs may be fixed in future releases, so we have to know which version you're running."
+      placeholder: "Write your open-in-mpv version. (v2.0.0, v2.1.0...)"
+    validations:
+      required: true
+  - type: textarea
+    id: snippet
+    attributes:
+      label: "Configuration"
+      description: "For some issues, we may need to take a look at the configuration you're running."
+      placeholder: "Share your configuration."
+      render: yml
+      value: |
+        players:
+          mpv:
+            name: mpv
+            executable: mpv
+            fullscreen: "--fs"
+            pip: "--ontop --no-border --autofit=384x216 --geometry=98\\%:98\\%"
+            needs_ipc: true
+            flag_overrides: {}
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output (optional)
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: sh
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on? (optional)
+      multiple: true
+      options:
+        - Firefox-based (Librewolf, Iceraven, etc.)
+        - Chromium-based (Brave, Chrome, etc.)
+        - Other (please specify in the description above)
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist:"
+      description: "By submitting this issue, you confirm that:"
+      options:
+        - label: "I have checked for existing issues that describe my problem prior to opening this one."
+          required: true
+        - label: "I understand that improperly formatted bug reports may be closed without explanation."
+          required: true

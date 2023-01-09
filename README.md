@@ -30,9 +30,13 @@ $ make install-protocol
 
 ### Configuration
 The configuration file has to be named `config.yml` and can be placed in the same folder as the executable or in:
-- Windows: `C:\Users\<user>\AppData\Roaming\open-in-mpv\`
-- Linux: `~/.config/open-in-mpv/`
-- Mac: `~/Library/Application Support/open-in-mpv/`
+
+|                            | Windows                            | Linux/BSDs                     | MacOS                                              |   |
+| -------------------------- | ---------------------------------- | ------------------------------ | -------------------------------------------------- | - |
+| System level configuration | `C:\ProgramData\open-in-mpv\`      | `/etc/xdg/open-in-mpv/`        | `/Library/Application Support/open-in-mpv/`        |   |
+| User level configuration   | `C:\Users\<User>\AppData\Roaming\` | `${HOME}/.config/open-in-mpv/` | `${HOME}/Library/Application Support/open-in-mpv/` |   |
+
+The user level configuration will always override the system level one.
 
 The configuration file has the following structure:
 

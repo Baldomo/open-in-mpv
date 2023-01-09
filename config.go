@@ -89,6 +89,7 @@ func LoadConfig() error {
 			player.SupportedSchemes = defaultSupportedSchemas
 			defaultConfig.Players[name] = player
 		}
+		// TODO: restrict/escape custom flags
 	}
 
 	return nil

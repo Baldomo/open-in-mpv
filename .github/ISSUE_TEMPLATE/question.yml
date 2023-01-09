@@ -1,0 +1,46 @@
+name: "Question"
+title: "question: "
+description: Ask a question if something isn't clear to you.
+labels: ["question"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Notice
+        - If you think this is just a bug, use the **Bug Report** template.
+        - If you want to suggest a new feature, use the **Feature Request** template.
+        - Write your issue in clear and understandable English.
+  - type: textarea
+    id: description
+    attributes:
+      label: "Question Description"
+      description: "A clear and detailed description of the question."
+      placeholder: "Explain your question as clearly and in detail as possible."
+    validations:
+      required: true
+  - type: textarea
+    id: snippet
+    attributes:
+      label: "Code Snippet (optional)"
+      description: "A code snippet may help to describe a feature."
+      placeholder: "Share a code to explain the feature better."
+      render: Go
+      value: |
+        package main
+        import "log"
+
+        func main() {
+          // An example to describe the feature
+          log.Println("Hello world!")
+        }
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist:"
+      description: "By submitting this issue, you confirm that:"
+      options:
+        - label: "I have checked for existing issues that describe my questions prior to opening this one."
+          required: true
+        - label: "I understand that improperly formatted questions may be closed without explanation."
+          required: true

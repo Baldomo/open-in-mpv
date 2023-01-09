@@ -1,0 +1,51 @@
+name: "Feature Request"
+title: "feature: "
+description: Suggest an idea to improve this project.
+labels: ["enhancement"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Notice
+        - If you think this is just a bug, use the **Bug Report** template.
+        - Write your issue in clear and understandable English.
+  - type: textarea
+    id: description
+    attributes:
+      label: "Feature Description"
+      description: "A clear and detailed description of the new feature."
+      placeholder: "Explain the feature you're suggesting as clearly and in detail as possible."
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "Additional Context (optional)"
+      description: "If you have something else to add, write it here."
+      placeholder: "Anything goes."
+  - type: textarea
+    id: snippet
+    attributes:
+      label: "Code Snippet (optional)"
+      description: "A code snippet may help to describe a feature."
+      placeholder: "Share some code to explain the feature better."
+      render: Go
+      value: |
+        package main
+        import "log"
+
+        func main() {
+          // An example to describe the feature
+          log.Println("Hello world!")
+        }
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist:"
+      description: "By submitting this issue, you confirm that:"
+      options:
+        - label: "I have checked for existing issues that describe my suggestion prior to opening this one."
+          required: true
+        - label: "I understand that improperly formatted feature requests may be closed without explanation."
+          required: true
