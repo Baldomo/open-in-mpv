@@ -48,14 +48,15 @@ var defaultSupportedSchemas = []string{
 var defaultConfig = Config{
 	Players: map[string]Player{
 		"mpv": {
-			Name:          "mpv",
-			Executable:    "mpv",
-			Fullscreen:    "--fs",
-			Pip:           `--ontop --no-border --autofit=384x216 --geometry=98%:98%`,
-			Enqueue:       "",
-			NewWindow:     "",
-			NeedsIpc:      true,
-			FlagOverrides: map[string]string{},
+			Name:             "mpv",
+			Executable:       "mpv",
+			Fullscreen:       "--fs",
+			Pip:              `--ontop --no-border --autofit=384x216 --geometry=98%:98%`,
+			Enqueue:          "",
+			NewWindow:        "",
+			NeedsIpc:         true,
+			SupportedSchemes: defaultSupportedSchemas,
+			FlagOverrides:    map[string]string{},
 		},
 	},
 }
