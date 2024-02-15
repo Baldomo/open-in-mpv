@@ -38,8 +38,8 @@ func main() {
 		log.Println("Error writing to socket, opening new instance")
 	}
 
-	args := opts.GenerateCommand()
-	player := exec.Command(opts.Player, args...)
+	executable, args := opts.GenerateCommand()
+	player := exec.Command(executable, args...)
 	log.Println(player.String())
 	must(player.Start())
 	// must(player.Wait())

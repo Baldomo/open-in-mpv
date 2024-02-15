@@ -31,8 +31,8 @@ func Test_GenerateCommand(t *testing.T) {
 	o.Flags = "--vo=gpu"
 	o.Pip = true
 
-	args := o.GenerateCommand()
-	t.Logf("%s %v", o.Player, args)
+	executable, args := o.GenerateCommand()
+	t.Logf("%s %v", executable, args)
 }
 
 func Test_GenerateIPC(t *testing.T) {
@@ -98,8 +98,8 @@ func Test_Parse(t *testing.T) {
 		t.Fatal("Err should not be nil")
 	}
 
-	args := o.GenerateCommand()
-	t.Logf("%s %v", o.Player, args)
+	executable, args := o.GenerateCommand()
+	t.Logf("%s %v", executable, args)
 }
 
 func Test_sliceContains(t *testing.T) {
