@@ -149,7 +149,7 @@ func (o Options) overrideFlags() string {
 
 // Builds a CLI command used to invoke the player with the appropriate
 // arguments
-func (o Options) GenerateCommand() []string {
+func (o Options) GenerateCommand() (string, []string) {
 	var ret []string
 
 	playerConfig := GetPlayerConfig(o.Player)
@@ -172,7 +172,7 @@ func (o Options) GenerateCommand() []string {
 
 	ret = append(ret, o.Url.String())
 
-	return ret
+	return playerConfig.Executable, ret
 }
 
 // Builds the IPC command needed to enqueue videos if the player requires it
