@@ -38,7 +38,7 @@ build/windows.tar: build/windows/open-in-mpv.exe
 
 build/firefox.zip: $(EXT_SRC)
 	@mkdir -p build
-	cp -t extension/Firefox extension/Chrome/{*.html,*.js,*.png,*.css}
+	cp extension/Chrome/{*.html,*.js,*.png,*.css} extension/Firefox
 	zip -j $@ extension/Firefox/*
 	@rm extension/Firefox/{*.html,*.js,*.png,*.css}
 
