@@ -9,7 +9,7 @@ builddir:
 
 build/linux/open-in-mpv: $(SRC) builddir
 	@echo -e "\n# Building for Linux"
-	env CGO_ENABLED=0 GOOS=linux GOARCh=amd64 go build -ldflags="-s -w" -o $@ ./cmd/open-in-mpv
+	env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o $@ ./cmd/open-in-mpv
 	cp $(SCRIPTS_DIR)/install-protocol.sh $(dir $@)
 	cp $(SCRIPTS_DIR)/open-in-mpv.desktop $(dir $@)
 
@@ -21,7 +21,10 @@ build/mac/open-in-mpv.app: $(SRC) scripts/Info.plist builddir
 	@# and https://apple.stackexchange.com/questions/253184/associating-protocol-handler-in-mac-os-x
 	@echo -e "\n# Building MacOS app bundle"
 	@mkdir -p $@/Contents
-	env CGO_ENABLED=0 GOOS=darwin GOARCh=amd64 go build -ldflags="-s -w" -o $@/Contents/MacOS/open-in-mpv ./cmd/open-in-mpv
+	go install github.com/randall77/makefat@latest
+	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o $(dir $@)/open-in-mpv.amd64 ./cmd/open-in-mpv
+	env CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o $(dir $@)/open-in-mpv.arm64 ./cmd/open-in-mpv
+	$(GOPATH)/bin/makefat $@/Contents/MacOS/open-in-mpv $(dir $@)/open-in-mpv.amd64 $(dir $@)/open-in-mpv.arm64
 	cp config.yml $@/Contents/MacOS/
 	cp $(SCRIPTS_DIR)/Info.plist $@/Contents
 
@@ -30,7 +33,7 @@ build/mac.tar: build/mac/open-in-mpv.app
 
 build/windows/open-in-mpv.exe: $(SRC) builddir
 	@echo -e "\n# Building for Windows"
-	env CGO_ENABLED=0 GOOS=windows GOARCh=amd64 go build -ldflags="-s -w -H windowsgui" -o $@ ./cmd/open-in-mpv
+	env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w -H windowsgui" -o $@ ./cmd/open-in-mpv
 	cp $(SCRIPTS_DIR)/install-protocol.reg $(dir $@)
 
 build/windows.tar: build/windows/open-in-mpv.exe
