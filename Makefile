@@ -20,7 +20,7 @@ build/mac/open-in-mpv.app: $(SRC) scripts/Info.plist builddir
 	@# See https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html
 	@# and https://apple.stackexchange.com/questions/253184/associating-protocol-handler-in-mac-os-x
 	@echo -e "\n# Building MacOS app bundle"
-	@mkdir -p $@/Contents
+	@mkdir -p $@/Contents/MacOS
 	go install github.com/randall77/makefat@latest
 	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o $(dir $@)/open-in-mpv.amd64 ./cmd/open-in-mpv
 	env CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o $(dir $@)/open-in-mpv.arm64 ./cmd/open-in-mpv
