@@ -95,7 +95,7 @@ func (o *Options) Parse(uri string) error {
 	}
 
 	o.Enqueue = u.Query().Get("enqueue") == "1"
-	o.Fullscreen = u.Query().Get("fullscreen") == "1"
+	o.Fullscreen = u.Query().Get("full_screen") == "1"
 	o.NewWindow = u.Query().Get("new_window") == "1"
 	o.Pip = u.Query().Get("pip") == "1"
 
@@ -159,7 +159,7 @@ func (o Options) GenerateCommand() (string, []string) {
 	}
 
 	if o.Pip {
-		ret = append(ret, playerConfig.Pip)
+		ret = append(ret, strings.Split(playerConfig.Pip, " ")...)
 	}
 
 	if o.Flags != "" {

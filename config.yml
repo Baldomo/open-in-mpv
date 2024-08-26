@@ -8,6 +8,7 @@ players:
     new_window: ""
     needs_ipc: true
     flag_overrides: {}
+
   celluloid:
     name: Celluloid
     executable: celluloid
@@ -16,8 +17,9 @@ players:
     enqueue: "--enqueue"
     new_window: "--new-window"
     needs_ipc: false
-    flag_overrides: 
+    flag_overrides:
       "*": "--mpv-%s"
+
   mpvnet:
     name: mpv.net
     executable: mpvnet.exe

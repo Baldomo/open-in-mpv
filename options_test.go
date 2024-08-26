@@ -10,7 +10,7 @@ var fakePlayer = Player{
 	Name:             "FakePlayer",
 	Executable:       "fakeplayer",
 	Fullscreen:       "",
-	Pip:              "",
+	Pip:              `--ontop --no-border --autofit=384x216 --geometry=98%:98%`,
 	Enqueue:          "",
 	NewWindow:        "",
 	NeedsIpc:         true,
@@ -22,17 +22,34 @@ func testUrl(query ...string) string {
 	elems := []string{
 		`mpv:///open?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdQw4w9WgXcQ`,
 	}
-	return strings.Join(append(elems, query...), "&")
+	for _, elem := range query {
+		key, value, _ := strings.Cut(elem, "=")
+		elems = append(elems, url.QueryEscape(key)+"="+url.QueryEscape(value))
+	}
+	return strings.Join(elems, "&")
 }
 
 func Test_GenerateCommand(t *testing.T) {
+	defaultConfig.Players["fakeplayer"] = fakePlayer
+
 	o := NewOptions()
-	o.Url, _ = url.Parse("example.com")
-	o.Flags = "--vo=gpu"
-	o.Pip = true
+	err := o.Parse(testUrl("player=fakeplayer", "flags=--ytdl-format=bestvideo[height<=480]+bestaudio", "pip=1"))
+	if err != nil {
+		t.Error(err)
+	}
 
 	executable, args := o.GenerateCommand()
 	t.Logf("%s %v", executable, args)
+
+	if executable != fakePlayer.Executable {
+		t.Logf("expected the default player to be %s", fakePlayer.Executable)
+		t.Fail()
+	}
+	// We expect 6 args: 1 from o.Flags, 4 from o.Pip and 1 is o.Url
+	if args == nil || len(args) < 6 {
+		t.Logf("expected 6 args, got %d", len(args))
+		t.Fail()
+	}
 }
 
 func Test_GenerateIPC(t *testing.T) {
