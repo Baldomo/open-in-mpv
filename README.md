@@ -13,10 +13,13 @@ The extension itself shares a lot of code with the one from the awesome [iina](h
 
 - [Installation](#installation)
 - [Configuration](#configuration)
+  - [Flag overrides](#flag-overrides)
+  - [Example](#example)
 - [The `mpv://` protocol](#the-mpv-protocol)
 - [Playlist and `enqueue` functionality](#playlist-and-enqueue-functionality)
 - [Player support](#player-support)
 - [Supported protocols](#supported-protocols)
+- [Troubleshooting and tips](#troubleshooting-and-tips)
 
 ### Installation
 > Compiled binaries and packed extensions can be found in the [releases page](https://github.com/Baldomo/open-in-mpv/releases).
@@ -145,3 +148,11 @@ Supported players are defined in `config.yml`, where the struct `Player` ([see `
 
 ### Supported protocols
 Since opening an arbitrary URL with a shell command can cause remote code execution on the host machine (for example by loading arbitrary `.so` files on a player by using special [schemes](https://en.wikipedia.org/wiki/List_of_URI_schemes)), only protocols/[schemes](https://en.wikipedia.org/wiki/List_of_URI_schemes) explicitly specified in the configuration will be processed by the native binary without errors. Defaults to `["http", "https"]` if empty. There is also no special instructions parsing or catch-all values.
+
+### Troubleshooting and tips
+This section will be updated with tips and tricks coming mainly from the issues and community.
+
+##### Setting a working directory for the called player
+- **Abstract:** in Windows, if the player and/or `yt-dlp` are installed as root, the player fails silently because `yt-dlp` (which is being ran as the current user) cannot write to its own directory
+- **Links:** issue #13
+- **Solution:** pass the `--paths temp:%TMP%` argument to `yt-dlp` to make it use a temporary directory instead of writing to the installation directory
