@@ -18,6 +18,13 @@
     "default_icon": "icon.png",
     "default_title": "Open In mpv"
   },
+  "commands": {
+    "open-in-mpv-shortcut": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+M"
+      }
+    }
+  },
   "permissions": [
     "tabs",
     "activeTab",

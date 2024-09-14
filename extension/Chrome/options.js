@@ -1,8 +1,10 @@
 import { restoreOptions, saveOptions, updateBrowserAction } from "./common.js"
+import { shortcutListener } from "./keyboard.js"
 
 const addListener = el => el.addEventListener("change", () => {
-  saveOptions()
-  updateBrowserAction()
+    saveOptions()
+    updateBrowserAction()
+    shortcutListener()
 })
 
 document.addEventListener("DOMContentLoaded", restoreOptions)

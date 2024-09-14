@@ -43,8 +43,29 @@ const _options = [
   new Option("iconActionOption", "radio", "direct"),
   new Option("mpvPlayer", "select", "mpv"),
   new Option("useCustomFlags", "checkbox", false),
-  new Option("customFlags", "text", "")
+  new Option("customFlags", "text", ""),
+  new Option("useShortcut", "checkbox", false),
+  new Option("shortcutKey", "text", "")
 ]
+
+function saveShortcut(txt) {
+  // firefox only - chrome doesn't support updating shortcuts dynamically through text box
+  if (navigator.userAgent.includes("Firefox")) {
+    browser.commands.update({
+      name: "open-in-mpv-shortcut",
+      shortcut: txt.shortcutKey
+    });
+  }
+}
+
+function restoreShortcut() {
+  getOptions((items) => {
+    chrome.commands.getAll((commands) => {
+      const cmd = commands.find(cmd => cmd.name === "open-in-mpv-shortcut")
+      _options.find(option => option.name === "shortcutKey").setValue(cmd.shortcut)
+    })
+  })
+}
 
 export function getOptions(callback) {
   const getDict = {}
@@ -60,6 +81,7 @@ export function saveOptions() {
     saveDict[item.name] = item.getValue()
   })
   chrome.storage.sync.set(saveDict)
+  saveShortcut(saveDict.shortcutKey)
 }
 
 export function restoreOptions() {
@@ -68,6 +90,7 @@ export function restoreOptions() {
       option.setValue(items[option.name])
     })
   })
+  restoreShortcut()
 }
 
 export function openInMPV(tabId, url, options = {}) {
@@ -105,25 +128,29 @@ export function openInMPV(tabId, url, options = {}) {
   chrome.tabs.executeScript(tabId, { code })
 }
 
+export function getActiveTab(cb) {
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+    const tab = tabs[0]
+    if (!tab || tab.id === chrome.tabs.TAB_ID_NONE) {
+      cb(null)
+    } else {
+      cb(tab)
+    }
+  })
+}
+
 export function updateBrowserAction() {
   getOptions(options => {
     if (options.iconAction === "clickOnly") {
       chrome.browserAction.setPopup({ popup: "" })
       chrome.browserAction.onClicked.addListener(() => {
-        // Get active tab
-        chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-          if (tabs.length === 0)
-            return
-
-          // TODO: filter url
-          const tab = tabs[0]
-          if (tab.id === chrome.tabs.TAB_ID_NONE)
-            return
-
-          openInMPV(tab.id, tab.url, {
-            mode: options.iconActionOption,
-            ...options,
-          })
+        getActiveTab((tab) => {
+          if (tab) {
+            openInMPV(tab.id, tab.url, {
+              mode: options.iconActionOption,
+              ...options,
+            })
+          }
         })
       })
 

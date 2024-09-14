@@ -1,6 +1,8 @@
 import { getOptions, openInMPV, updateBrowserAction } from "./common.js";
+import { shortcutListener } from "./keyboard.js";
 
 updateBrowserAction();
+shortcutListener();
 
 [["page", "pageUrl"], ["link", "linkUrl"], ["video", "srcUrl"], ["audio", "srcUrl"]].forEach(([item, linkType]) => {
   chrome.contextMenus.create({
