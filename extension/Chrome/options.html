@@ -1,66 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Options</title>
-  <script src="common.js" type="module"></script>
-  <link rel="stylesheet" href="options.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Options</title>
+    <script src="common.js" type="module"></script>
+    <link rel="stylesheet" href="options.css">
+  </head>
 
-<body>
-  <div class="container">
-    <h2 class="title">Player options</h2>
-    <div class="option">
-      <label class="option-title"> Select the mpv-based player to use</label>
-      <br>
-      <select name="mpvPlayer">
-        <option value="mpv">mpv</option>
-        <option value="celluloid">Celluloid</option>
-      </select>
-    </div>
-    <div class="option">
-      <label class="option-title"><input type="checkbox" name="useCustomFlags"> Use custom command line flags</label>
-      <div class="option-details" id="customFlagsContainer">
-        <input type="text" name="customFlags">
-        <p> Note: do include hyphens (e.g.<span style="font-family: monospace;">'--fs'</span>)</p>
+  <body>
+    <div class="container">
+      <h2 class="title">Player options</h2>
+      <div class="option">
+        <label class="option-title"> Select the mpv-based player to use</label>
+        <br>
+        <select name="mpvPlayer">
+          <option value="mpv">mpv</option>
+          <option value="celluloid">Celluloid</option>
+        </select>
+      </div>
+      <div class="option">
+        <label class="option-title"><input type="checkbox" name="useCustomFlags"> Use custom command line flags</label>
+        <div class="option-details" id="customFlagsContainer">
+          <input type="text" name="customFlags">
+          <p> Note: do include hyphens (e.g.<span style="font-family: monospace;">'--fs'</span>)</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="container">
-    <h2 class="title">When clicking on the extension icon</h2>
-    <div class="option">
-      <div class="item">
-        <label><input type="radio" name="iconAction" value="clickOnly"> Open current page in mpv</label>
-      </div>
-      <div class="item">
-        <label><input type="radio" name="iconAction" value="menu"> Show a menu to select action</label>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <h2 class="title">Default open action</h2>
-    <div class="option">
-      <div class="option-details">
-        <p>Applies to "Open current page in mpv" and the right click context menu</p>
-      </div>
-      <div class="item">
-        <label><input type="radio" name="iconActionOption" value="direct"> Open directly</label>
-      </div>
-      <div class="item">
-        <label><input type="radio" name="iconActionOption" value="fullScreen"> Enter full screen</label>
-      </div>
-      <div class="item">
-        <label><input type="radio" name="iconActionOption" value="pip"> Enter Picture-in-Picture</label>
-      </div>
-      <div class="item">
-        <label><input type="radio" name="iconActionOption" value="enqueue"> Add to queue</label>
+    <div class="container">
+      <h2 class="title">When clicking on the extension icon</h2>
+      <div class="option">
+        <div class="item">
+          <label><input type="radio" name="iconAction" value="clickOnly"> Open current page in mpv</label>
+        </div>
+        <div class="item">
+          <label><input type="radio" name="iconAction" value="menu"> Show a menu to select action</label>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="options.js" type="module"></script>
-</body>
+    <div class="container">
+      <h2 class="title">Default open action</h2>
+      <div class="option">
+        <div class="option-details">
+          <p>Applies to "Open current page in mpv" and the right click context menu</p>
+        </div>
+        <div class="item">
+          <label><input type="radio" name="iconActionOption" value="direct"> Open directly</label>
+        </div>
+        <div class="item">
+          <label><input type="radio" name="iconActionOption" value="fullScreen"> Enter full screen</label>
+        </div>
+        <div class="item">
+          <label><input type="radio" name="iconActionOption" value="pip"> Enter Picture-in-Picture</label>
+        </div>
+        <div class="item">
+          <label><input type="radio" name="iconActionOption" value="enqueue"> Add to queue</label>
+        </div>
+      </div>
+      <div class="option">
+        <label class="option-title"><input type="checkbox" name="useShortcut"> Use shortcut for default action</label>
+        <div class="option-details" id="">
+          <input type="text" name="shortcutKey">
+          <p>Note: Default browser shortcuts (e.g., <span style="font-family: monospace;">Ctrl+P</span>) cannot be overwritten.<br>
+          Use <a href="about:addons" target="_blank">about:addons</a> (Firefox) or <a href="chrome://extensions/shortcuts" target="_blank">chrome://extensions/shortcuts</a> (Chrome) to set shortcuts more conveniently.</p>
+        </div>
+      </div>
+    </div>
+    <script src="options.js" type="module"></script>
+  </body>
 
 </html>
