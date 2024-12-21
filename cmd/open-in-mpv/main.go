@@ -1,12 +1,19 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
 	"os/exec"
 
 	oim "github.com/Baldomo/open-in-mpv"
+)
+
+var (
+	Version   = "dev"
+	Commit    string
+	BuildDate string
 )
 
 func must(err error) {
@@ -18,8 +25,25 @@ func must(err error) {
 }
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("This program is not supposed to be called from the command line!")
+	flag.Usage = func() {
+		fmt.Printf("Usage: open-in-mpv [OPTIONS] <URL>\n")
+		fmt.Printf("Flags:\n")
+		flag.PrintDefaults()
+	}
+
+	showVersion := flag.Bool("v", false, "show version information")
+	flag.Parse()
+
+	if *showVersion {
+		fmt.Printf("open-in-mpv %s\n", Version)
+		fmt.Printf("  Commit: %s\n", Commit)
+		fmt.Printf("  Built on: %s\n", BuildDate)
+		os.Exit(0)
+	}
+
+	if flag.NArg() == 0 {
+		fmt.Println("No arguments supplied!")
+		flag.Usage()
 		os.Exit(1)
 	}
 
