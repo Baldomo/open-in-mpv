@@ -38,7 +38,7 @@ class Option {
   }
 }
 
-const _options = [
+const options = [
   new Option("iconAction", "radio", "clickOnly"),
   new Option("iconActionOption", "radio", "direct"),
   new Option("mpvPlayer", "select", "mpv"),
@@ -48,7 +48,7 @@ const _options = [
 
 export function getOptions(callback) {
   const getDict = {}
-  _options.forEach(item => {
+  options.forEach(item => {
     getDict[item.name] = item.defaultValue
   })
   chrome.storage.sync.get(getDict, callback)
@@ -56,7 +56,7 @@ export function getOptions(callback) {
 
 export function saveOptions() {
   const saveDict = {}
-  _options.forEach(item => {
+  options.forEach(item => {
     saveDict[item.name] = item.getValue()
   })
   chrome.storage.sync.set(saveDict)
@@ -64,10 +64,17 @@ export function saveOptions() {
 
 export function restoreOptions() {
   getOptions((items) => {
-    _options.forEach(option => {
+    options.forEach(option => {
       option.setValue(items[option.name])
     })
   })
+}
+
+function openLink(baseURL, params = []) {
+  const link = document.createElement('a')
+  link.href = `${baseURL}${params.join("&")}`
+  document.body.appendChild(link)
+  link.click()
 }
 
 export function openInMPV(tabId, url, options = {}) {
@@ -96,40 +103,20 @@ export function openInMPV(tabId, url, options = {}) {
   if (options.useCustomFlags && options.customFlags !== "")
     params.push(`flags=${encodeURIComponent(options.customFlags)}`)
 
-  const code = `
-    var link = document.createElement('a')
-    link.href='${baseURL}${params.join("&")}'
-    document.body.appendChild(link)
-    link.click()`
-  console.log(code)
-  chrome.tabs.executeScript(tabId, { code })
+  // TODO: test, xpinstall.signatures.required to false
+  chrome.scripting.executeScript({
+    target: { tabId },
+    func: openLink,
+    args: [baseURL, params]
+  })
 }
 
 export function updateBrowserAction() {
-  getOptions(options => {
+  getOptions((options) => {
     if (options.iconAction === "clickOnly") {
-      chrome.browserAction.setPopup({ popup: "" })
-      chrome.browserAction.onClicked.addListener(() => {
-        // Get active tab
-        chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-          if (tabs.length === 0)
-            return
-
-          // TODO: filter url
-          const tab = tabs[0]
-          if (tab.id === chrome.tabs.TAB_ID_NONE)
-            return
-
-          openInMPV(tab.id, tab.url, {
-            mode: options.iconActionOption,
-            ...options,
-          })
-        })
-      })
-
-      return
+      chrome.action.setPopup({ popup: "" });
+    } else {
+      chrome.action.setPopup({ popup: "popup.html" });
     }
-
-    chrome.browserAction.setPopup({ popup: "popup.html" })
-  })
+  });
 }

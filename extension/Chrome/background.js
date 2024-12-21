@@ -2,19 +2,47 @@ import { getOptions, openInMPV, updateBrowserAction } from "./common.js";
 
 updateBrowserAction();
 
-[["page", "pageUrl"], ["link", "linkUrl"], ["video", "srcUrl"], ["audio", "srcUrl"]].forEach(([item, linkType]) => {
+const dict = {
+  page: "pageUrl",
+  link: "linkUrl",
+  video: "srcUrl",
+  audio: "srcUrl",
+};
+
+Object.keys(dict).forEach((item) => {
   chrome.contextMenus.create({
     title: `Open this ${item} in mpv`,
-    id: `open${item}inmpv`,
+    id: `openinmpv_${item}`,
     contexts: [item],
-    onclick: (info, tab) => {
-      getOptions((options) => {
-        console.log("Got options: ", options);
-        openInMPV(tab.id, info[linkType], {
-          mode: options.iconActionOption,
-          ...options,
-        });
-      });
-    },
   });
 });
+
+chrome.contextMenus.onClicked.addListener(function (info, tab) {
+  if (info.menuItemId.startsWith("openinimpv")) {
+    const key = info.menuItemId.split("_")[1];
+    const url = info[dict[key]];
+    if (url) {
+      openInMPV(tab.id, url);
+    }
+  }
+});
+
+chrome.action.onClicked.addListener(() => {
+  // get active window
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+    if (tabs.length === 0) {
+      return;
+    }
+    // TODO: filter url
+    const tab = tabs[0];
+    if (tab.id === chrome.tabs.TAB_ID_NONE) {
+      return;
+    }
+    getOptions((options) => {
+      openInMPV(tab.id, tab.url, {
+        mode: options.iconActionOption,
+      });
+    });
+  });
+});
+

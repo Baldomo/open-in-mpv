@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "browser_specific_settings": {
     "gecko": {
       "id": "{d66c8515-1e0d-408f-82ee-2682f2362726}"
@@ -7,14 +7,17 @@
   },
   "name": "Open In mpv",
   "description": "Open videos and audio files in mpv.",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "options_ui": {
     "page": "options.html"
   },
   "background": {
-    "page": "background.html"
+    "scripts": [
+      "background.js"
+    ],
+    "type": "module"
   },
-  "browser_action": {
+  "action": {
     "default_icon": "icon.png",
     "default_title": "Open In mpv"
   },
@@ -22,7 +25,8 @@
     "tabs",
     "activeTab",
     "contextMenus",
-    "storage"
+    "storage",
+    "scripting"
   ],
   "icons": {
     "16": "icon16.png",
