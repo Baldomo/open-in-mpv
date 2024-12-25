@@ -41,6 +41,7 @@ chrome.action.onClicked.addListener(() => {
     getOptions((options) => {
       openInMPV(tab.id, tab.url, {
         mode: options.iconActionOption,
+        ...options,
       });
     });
   });

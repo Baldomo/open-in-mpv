@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Open In MPV",
   "description": "Open videos and audio files in mpv.",
-  "version": "2.1.0",
+  "version": "2.4.1",
   "options_page": "options.html",
   "background": {
     "service_worker": "background.js",

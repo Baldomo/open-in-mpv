@@ -1,6 +1,7 @@
 SRC := config.go ipc.go options.go $(wildcard cmd/open-in-mpv/*)
 EXT_SRC := $(wildcard extension/Chrome/*) extension/Firefox/manifest.json
 SCRIPTS_DIR := scripts
+PREFIX := /usr/bin
 
 TAG_COMMIT := $(shell git rev-list --abbrev-commit --tags --max-count=1)
 TAG := $(shell git describe --abbrev=0 --tags ${TAG_COMMIT} 2>/dev/null || true)
@@ -55,7 +56,7 @@ $(BUILD_DIR)/mac/open-in-mpv.app: $(SRC) scripts/Info.plist $(BUILD_DIR)
 	cp $(SCRIPTS_DIR)/Info.plist $@/Contents
 
 $(BUILD_DIR)/mac.tar: $(BUILD_DIR)/mac/open-in-mpv.app
-	tar cf $@ -C $(dir $@)/mac open-in-mpv.app
+	tar cf $@ -C $(dir $@)mac open-in-mpv.app
 
 $(BUILD_DIR)/windows/open-in-mpv.exe: $(SRC) $(BUILD_DIR)
 	@echo -e "\n# Building for Windows"
@@ -65,14 +66,15 @@ $(BUILD_DIR)/windows/open-in-mpv.exe: $(SRC) $(BUILD_DIR)
 $(BUILD_DIR)/windows.tar: $(BUILD_DIR)/windows/open-in-mpv.exe
 	tar cf $@ -C $(dir $@)windows $(notdir $(wildcard $(BUILD_DIR)/windows/*))
 
-$(BUILD_DIR)/firefox.zip: $(EXT_SRC)
-	@mkdir -p build
+$(BUILD_DIR)/firefox.zip: $(BUILD_DIR) $(EXT_SRC)
+	sed -i 's/"version": .*"/"version": '\"$(VERSION)\"'/g' extension/Chrome/manifest.json
 	cp extension/Chrome/{*.html,*.js,*.png,*.css} extension/Firefox
+	sed -i 's/"version": .*"/"version": '\"$(VERSION)\"'/g' extension/Firefox/manifest.json
 	zip -j $@ extension/Firefox/*
 	@rm extension/Firefox/{*.html,*.js,*.png,*.css}
 
 install: $(BUILD_DIR)/linux/open-in-mpv
-	cp $(BUILD_DIR)/linux/open-in-mpv /usr/bin
+	cp $(BUILD_DIR)/linux/open-in-mpv $(PREFIX)
 
 install-protocol:
 	$(SCRIPTS_DIR)/install-protocol.sh

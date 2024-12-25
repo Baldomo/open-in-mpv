@@ -103,7 +103,7 @@ export function openInMPV(tabId, url, options = {}) {
   if (options.useCustomFlags && options.customFlags !== "")
     params.push(`flags=${encodeURIComponent(options.customFlags)}`)
 
-  // TODO: test, xpinstall.signatures.required to false
+  console.log("Opening URL:", { baseURL, params })
   chrome.scripting.executeScript({
     target: { tabId },
     func: openLink,
