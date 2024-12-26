@@ -47,11 +47,11 @@ const options = [
 ]
 
 export function getOptions(callback) {
-  const getDict = {}
+  const defaults = {}
   options.forEach(item => {
-    getDict[item.name] = item.defaultValue
+    defaults[item.name] = item.defaultValue
   })
-  chrome.storage.sync.get(getDict, callback)
+  chrome.storage.sync.get(defaults, callback)
 }
 
 export function saveOptions() {

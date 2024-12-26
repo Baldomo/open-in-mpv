@@ -22,7 +22,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     const key = info.menuItemId.split("_")[1];
     const url = info[dict[key]];
     if (url) {
-      openInMPV(tab.id, url);
+      getOptions((options) => {
+        openInMPV(tab.id, url, options);
+      })
     }
   }
 });
