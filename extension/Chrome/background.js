@@ -9,16 +9,18 @@ const dict = {
   audio: "srcUrl",
 };
 
+const ID_PREFIX = "openinmpv"
+
 Object.keys(dict).forEach((item) => {
   chrome.contextMenus.create({
     title: `Open this ${item} in mpv`,
-    id: `openinmpv_${item}`,
+    id: `${ID_PREFIX}_${item}`,
     contexts: [item],
   });
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
-  if (info.menuItemId.startsWith("openinimpv")) {
+  if (info.menuItemId.startsWith(ID_PREFIX)) {
     const key = info.menuItemId.split("_")[1];
     const url = info[dict[key]];
     if (url) {

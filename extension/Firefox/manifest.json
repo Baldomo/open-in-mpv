@@ -7,7 +7,7 @@
   },
   "name": "Open In mpv",
   "description": "Open videos and audio files in mpv.",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "options_ui": {
     "page": "options.html"
   },

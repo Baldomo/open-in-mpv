@@ -32,7 +32,6 @@ $(BUILD_DIR)/open-in-mpv_$(VERSION).tar.gz: $(SRC)
 	@echo -e "\n# Creating tarball"
 	go mod vendor
 	tar czf $(BUILD_DIR)/open-in-mpv_$(VERSION).tar.gz --transform "s,^,open-in-mpv_$(VERSION)/," --exclude $(BUILD_DIR) *
-	rm -rf vendor
 
 $(BUILD_DIR)/linux/open-in-mpv: $(SRC) $(BUILD_DIR)
 	@echo -e "\n# Building for Linux"
@@ -83,7 +82,7 @@ uninstall:
 	rm /usr/bin/open-in-mpv
 
 clean:
-	rm -rf $(dir $(BUILD_DIR))*
+	rm -rf $(dir $(BUILD_DIR))* vendor
 
 test:
 	go test ./...
