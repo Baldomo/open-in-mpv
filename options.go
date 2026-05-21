@@ -105,7 +105,7 @@ func (o *Options) Parse(uri string) error {
 }
 
 // Parses flag overrides and returns the final flags
-func (o Options) overrideFlags() string {
+func (o Options) overrideFlags() []string {
 	var (
 		ret  []string
 		star bool
@@ -113,7 +113,7 @@ func (o Options) overrideFlags() string {
 
 	playerConfig := GetPlayerConfig(o.Player)
 	if playerConfig == nil {
-		return ""
+		return []string{}
 	}
 
 	// Premature look for star override in configuration
@@ -144,7 +144,7 @@ func (o Options) overrideFlags() string {
 		}
 	}
 
-	return strings.Join(ret, " ")
+	return ret
 }
 
 // Builds a CLI command used to invoke the player with the appropriate
@@ -164,9 +164,9 @@ func (o Options) GenerateCommand() (string, []string) {
 
 	if o.Flags != "" {
 		if len(playerConfig.FlagOverrides) == 0 {
-			ret = append(ret, o.Flags)
+			ret = append(ret, strings.Split(o.Flags, " ")...)
 		} else {
-			ret = append(ret, o.overrideFlags())
+			ret = append(ret, o.overrideFlags()...)
 		}
 	}
 
