@@ -156,3 +156,11 @@ This section will be updated with tips and tricks coming mainly from the issues 
 - **Abstract:** in Windows, if the player and/or `yt-dlp` are installed as root, the player fails silently because `yt-dlp` (which is being ran as the current user) cannot write to its own directory
 - **Links:** issue #13
 - **Solution:** pass the `--paths temp:%TMP%` argument to `yt-dlp` to make it use a temporary directory instead of writing to the installation directory
+
+##### Additional setup for AppArmor (and similar) hardened distros (Ubuntu, Debian, Fedora, etc.)
+Some distros have AppArmor (Ubuntu/Debian), SELinux (Fedora) enabled  by default. This can lead to the browser being unable to launch the helper binary. For Ubuntu and derivatives you need to edit the AppArmor profile for Firefox located at `/etc/apparmor.d/usr.bin.firefox` by adding the path to the `open-in-mpv` helper binary and providing it with execute rights.
+
+```
+# Rule for open-in-mpv helper
+/path/to/the/helper/open-in-mpv Uxr,
+```
