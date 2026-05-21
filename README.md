@@ -158,9 +158,7 @@ This section will be updated with tips and tricks coming mainly from the issues 
 - **Solution:** pass the `--paths temp:%TMP%` argument to `yt-dlp` to make it use a temporary directory instead of writing to the installation directory
 
 ##### Additional setup for AppArmor (and similar) hardened distros (Ubuntu, Debian, Fedora, etc.)
-
-###### AppArmor
-Some distros have AppArmor (Ubuntu/Debian), SELinux (Fedora) enabled  by default. This can lead to the problem, because firefox is normally controlled through the access lists. For Ubuntu and derivatives you need to edit the apparmor profile for firefox located at `/etc/apparmor.d/usr.bin.firefox` adding at some place the path to the open-in-mpv helper binary and providing it with execute rights.
+Some distros have AppArmor (Ubuntu/Debian), SELinux (Fedora) enabled  by default. This can lead to the browser being unable to launch the helper binary. For Ubuntu and derivatives you need to edit the AppArmor profile for Firefox located at `/etc/apparmor.d/usr.bin.firefox` by adding the path to the `open-in-mpv` helper binary and providing it with execute rights.
 
 ```
 # Rule for open-in-mpv helper
