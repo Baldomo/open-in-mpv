@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/goccy/go-yaml"
 	"github.com/shibukawa/configdir"
-	"gopkg.in/yaml.v2"
 )
 
 // The Player struct contains useful informations for an mpv-based player,
