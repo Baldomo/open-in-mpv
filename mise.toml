@@ -1,0 +1,159 @@
+[tools]
+go = "1.26"
+"go:github.com/mediabuyerbot/go-crx3/crx3" = "latest"
+"go:github.com/randall77/makefat" = "latest"
+
+[vars]
+version = "{{ exec(command='scripts/version.sh version') }}"
+tag = "{{ exec(command='scripts/version.sh tag') }}"
+commit = "{{ exec(command='scripts/version.sh commit') }}"
+date_pretty = "{{ exec(command='scripts/version.sh date_pretty') }}"
+build_dir = "build/{{ vars.version }}"
+ldflags = "-s -w -X main.Version={{ vars.tag }} -X main.BuildDate={{ vars.date_pretty }} -X main.Commit={{ vars.commit }}"
+
+[tasks.vendor]
+description = "Vendor Go module dependencies"
+sources = ["go.mod", "go.sum"]
+outputs = ["vendor/modules.txt"]
+run = "go mod vendor"
+
+[tasks.test]
+description = "Run Go tests"
+run = "go test ./..."
+
+[tasks.build]
+description = "Build all release artifacts (tarball + Linux/macOS/Windows/Firefox packages)"
+depends = [
+  "build:tarball",
+  "build:linux",
+  "build:mac",
+  "build:windows",
+  "build:firefox",
+  "build:chrome"
+]
+
+[tasks."build:tarball"]
+description = "Create a source tarball of the repository"
+depends = ["vendor"]
+sources = ["config.go", "ipc.go", "options.go", "cmd/open-in-mpv/**/*"]
+outputs = ["{{ vars.build_dir }}/open-in-mpv_{{ vars.version }}.tar.gz"]
+run = '''
+#!/usr/bin/env bash
+mkdir -p {{ vars.build_dir }}
+tar czf {{ vars.build_dir }}/open-in-mpv_{{ vars.version }}.tar.gz --transform "s,^,open-in-mpv_{{ vars.version }}/," --exclude {{ vars.build_dir }} *
+'''
+
+[tasks."build:linux"]
+description = "Build the Linux binary and package it as a tar archive"
+depends = ["vendor"]
+sources = [
+  "config.go",
+  "ipc.go",
+  "options.go",
+  "cmd/open-in-mpv/**/*.go",
+  "scripts/install-protocol.sh",
+  "scripts/open-in-mpv.desktop"
+]
+env = { "CGO_ENABLED" = "0", "GOOS" = "linux", "GOARCH" = "amd64" }
+outputs = ["{{ vars.build_dir }}/linux.tar"]
+run = '''
+#!/usr/bin/env bash
+mkdir -p {{ vars.build_dir }}/linux
+go build -mod=vendor -ldflags="{{ vars.ldflags }}" -o {{ vars.build_dir }}/linux/open-in-mpv ./cmd/open-in-mpv
+cp scripts/install-protocol.sh {{ vars.build_dir }}/linux/
+cp scripts/open-in-mpv.desktop {{ vars.build_dir }}/linux/
+tar cf {{ vars.build_dir }}/linux.tar -C {{ vars.build_dir }}/linux $(ls {{ vars.build_dir }}/linux)
+'''
+
+[tasks."build:mac"]
+description = "Build the macOS universal app bundle and package it as a tar archive"
+depends = ["vendor"]
+sources = [
+  "config.go",
+  "ipc.go",
+  "options.go",
+  "cmd/open-in-mpv/**/*.go",
+  "scripts/Info.plist",
+  "config.yml"
+]
+outputs = ["{{ vars.build_dir }}/mac.tar"]
+env = { "CGO_ENABLED" = "0", "GOOS" = "darwin" }
+run = '''
+#!/usr/bin/env bash
+APP_DIR="{{ vars.build_dir }}/mac/open-in-mpv.app"
+mkdir -p "$APP_DIR/Contents/MacOS"
+for arch in amd64 arm64; do
+    env GOARCH=$arch go build -mod=vendor -ldflags="{{ vars.ldflags }}" -o {{ vars.build_dir }}/mac/open-in-mpv.$arch ./cmd/open-in-mpv
+done
+makefat "$APP_DIR/Contents/MacOS/open-in-mpv" {{ vars.build_dir }}/mac/open-in-mpv.amd64 {{ vars.build_dir }}/mac/open-in-mpv.arm64
+cp config.yml "$APP_DIR/Contents/MacOS/"
+cp scripts/Info.plist "$APP_DIR/Contents/"
+tar cf {{ vars.build_dir }}/mac.tar -C {{ vars.build_dir }}/mac open-in-mpv.app
+'''
+
+[tasks."build:windows"]
+description = "Build the Windows binary and package it as a tar archive"
+depends = ["vendor"]
+sources = [
+  "config.go",
+  "ipc.go",
+  "options.go",
+  "cmd/open-in-mpv/**/*.go",
+  "scripts/install-protocol.reg"
+]
+env = { "CGO_ENABLED" = "0", "GOOS" = "windows", "GOARCH" = "amd64" }
+outputs = ["{{ vars.build_dir }}/windows.tar"]
+run = '''
+#!/usr/bin/env bash
+mkdir -p {{ vars.build_dir }}/windows
+go build -mod=vendor -ldflags="{{ vars.ldflags }} -H windowsgui" -o {{ vars.build_dir }}/windows/open-in-mpv.exe ./cmd/open-in-mpv
+cp scripts/install-protocol.reg {{ vars.build_dir }}/windows/
+tar cf {{ vars.build_dir }}/windows.tar -C {{ vars.build_dir }}/windows $(ls {{ vars.build_dir }}/windows)
+'''
+
+[tasks.bump-manifest]
+sources = ["extension/Firefox/manifest.json"]
+run = '''
+#!/usr/bin/env bash
+mkdir -p {{ vars.build_dir }}
+sed -i 's/"version": .*"/"version": "{{ vars.version }}"/g' extension/Chrome/manifest.json
+sed -i 's/"version": .*"/"version": "{{ vars.version }}"/g' extension/Firefox/manifest.json
+'''
+
+[tasks."build:firefox"]
+description = "Bump extension manifest versions and package the Firefox extension zip"
+depends = ["bump-manifest"]
+sources = ["extension/Chrome/**", "extension/Firefox/manifest.json"]
+outputs = ["{{ vars.build_dir }}/firefox.zip"]
+run = '''
+#!/usr/bin/env bash
+cp extension/Chrome/*.html extension/Chrome/*.js extension/Chrome/*.png extension/Chrome/*.css extension/Firefox/
+zip -j {{ vars.build_dir }}/firefox.zip extension/Firefox/*
+rm extension/Firefox/*.html extension/Firefox/*.js extension/Firefox/*.png extension/Firefox/*.css
+'''
+
+[tasks."build:chrome"]
+description = "Bump extension manifest versions and package the Firefox extension zip"
+depends = ["bump-manifest"]
+sources = ["extension/Chrome/**"]
+outputs = ["{{ vars.build_dir }}/chrome.crx"]
+run = "crx3 pack extension/Chrome -p $HOME/.ssh/open-in-mpv.pem -o {{ vars.build_dir }}/chrome.crx"
+
+[tasks.install]
+description = "Install the Linux binary to PREFIX (default /usr/bin)"
+depends = ["build:linux"]
+env = { PREFIX = "{{ get_env(name='PREFIX', default='/usr/bin') }}" }
+run = 'cp {{ vars.build_dir }}/linux/open-in-mpv "$PREFIX"'
+
+[tasks."install-protocol"]
+description = "Install the mpv:// protocol handler (desktop file + MIME association)"
+run = "scripts/install-protocol.sh"
+
+[tasks.uninstall]
+description = "Remove the installed binary from PREFIX (default /usr/bin)"
+env = { PREFIX = "{{ get_env(name='PREFIX', default='/usr/bin') }}" }
+run = 'rm "$PREFIX/open-in-mpv"'
+
+[tasks.clean]
+description = "Remove build artifacts and vendored dependencies"
+run = "rm -rf build vendor"

@@ -13,8 +13,6 @@ The extension itself shares a lot of code with the one from the awesome [iina](h
 
 - [Installation](#installation)
 - [Configuration](#configuration)
-  - [Flag overrides](#flag-overrides)
-  - [Example](#example)
 - [The `mpv://` protocol](#the-mpv-protocol)
 - [Playlist and `enqueue` functionality](#playlist-and-enqueue-functionality)
 - [Player support](#player-support)
@@ -24,12 +22,20 @@ The extension itself shares a lot of code with the one from the awesome [iina](h
 ### Installation
 > Compiled binaries and packed extensions can be found in the [releases page](https://github.com/Baldomo/open-in-mpv/releases).
 
-To build and install `open-in-mpv` and the `mpv://` protocol handler, just run
+To build and install `open-in-mpv` and the `mpv://` protocol handler:
 
-```
-$ sudo make install
-$ make install-protocol
-```
+1. Install [`mise`](https://mise.jdx.dev/getting-started.html#installing-mise-cli)
+2. Run
+   
+    ```shell
+    $ sudo mise install
+    $ mise install-protocol
+    ```
+
+> You can customize the installation prefix by setting the `PREFIX` environment variable, e.g.
+> ```shell
+> PREFIX=/usr/bin sudo mise install
+> ```
 
 ### Configuration
 The configuration file has to be named `config.yml` and can be placed in the same folder as the executable or in:
