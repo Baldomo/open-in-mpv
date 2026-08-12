@@ -4,6 +4,7 @@ import (
 	"net/url"
 	"strings"
 	"testing"
+	"slices"
 )
 
 var fakePlayer = Player{
@@ -31,23 +32,27 @@ func testUrl(query ...string) string {
 
 func Test_GenerateCommand(t *testing.T) {
 	defaultConfig.Players["fakeplayer"] = fakePlayer
-
 	o := NewOptions()
-	err := o.Parse(testUrl("player=fakeplayer", "flags=--ytdl-format=bestvideo[height<=480]+bestaudio", "pip=1"))
+
+	// The '+' character needs to be escaped twice
+	// to prevent it from decaying to a space
+	err := o.Parse(testUrl("player=fakeplayer", "flags=--ytdl-format=bestvideo[height<=480]%2Bbestaudio --gpu-api=opengl", "pip=1"))
+
 	if err != nil {
 		t.Error(err)
 	}
 
 	executable, args := o.GenerateCommand()
-	t.Logf("%s %v", executable, args)
+	t.Logf("%s %q", executable, args)
 
 	if executable != fakePlayer.Executable {
 		t.Logf("expected the default player to be %s", fakePlayer.Executable)
 		t.Fail()
 	}
-	// We expect 6 args: 1 from o.Flags, 4 from o.Pip and 1 is o.Url
-	if args == nil || len(args) < 6 {
-		t.Logf("expected 6 args, got %d", len(args))
+
+	// We expect 7 args: 2 from o.Flags, 4 from o.Pip and 1 is o.Url
+	if args == nil || len(args) != 7 {
+		t.Logf("expected 7 args, got %d", len(args))
 		t.Fail()
 	}
 }
@@ -71,7 +76,7 @@ func Test_overrideFlags_single(t *testing.T) {
 
 	result := o.overrideFlags()
 
-	if result != "--bar=foo" {
+	if !slices.Equal(result, []string{"--bar=foo"}) {
 		t.Fail()
 		t.Log(result)
 		t.Logf("%#v\n", o)
@@ -90,7 +95,7 @@ func Test_overrideFlags_star(t *testing.T) {
 
 	result := o.overrideFlags()
 
-	if result != "--bar=foo --bar=baz" {
+	if !slices.Equal(result, []string{"--bar=foo", "--bar=baz"}) {
 		t.Fail()
 		t.Log(result)
 		t.Logf("%#v\n", o)
